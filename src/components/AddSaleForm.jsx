@@ -10,35 +10,43 @@ function AddSaleForm() {
                 name="item"
                 placeholder="Введите название товара"
             />
-            <label htmlFor="">Цена:</label>
+            <label htmlFor="price">Цена:</label>
             <input
                 className="add-sale__form-input"
                 type="number"
-                name="item"
+                name="price"
                 placeholder="Введите цену"
             />
             <fieldset>
                 <legend>Процент:</legend>
-                <div>
+                <div className="add-sale__form-radio">
                     <input
-                        className="add-sale__form-radio"
+                        className="add-sale__form-radio-btn"
+                        id="one-percent"
                         type="radio"
                         name="radio"
                         value="1"
                     />{' '}
-                    <label className="radio-label">1%</label>
+                    <label htmlFor="one-percent" className="add-sale__form-radio-label">
+                        1%
+                    </label>
                 </div>
-                <div>
+                <div className="add-sale__form-radio">
                     <input
-                        className="add-sale__form-radio"
+                        className="add-sale__form-radio-btn"
+                        id="three-percent"
                         type="radio"
                         name="radio"
                         value="3"
                     />{' '}
-                    <label className="radio-label">3%</label>
+                    <label htmlFor="three-percent" className="add-sale__form-radio-label">
+                        3%
+                    </label>
                 </div>
             </fieldset>
-            <button className="add-sale__form-btn" type="submit">Добавить</button>
+            <button className="add-sale__form-btn" type="submit">
+                Добавить
+            </button>
         </form>
     );
 }
