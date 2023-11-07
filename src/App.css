@@ -1,0 +1,17 @@
+@font-face {
+    font-weight: 400; /* Соответствует значению normal */
+    font-family: Geometria;
+    src: url("../public/fonts/geometria_medium.otf");
+  }
+  
+  @font-face {
+    font-weight: 700; /* Соответствует значению bold */
+    font-family: Geometria;
+    src: url("../public/fonts/geometria_bold.otf");
+  }
+  
+  @font-face {
+    font-weight: 300;
+    font-family: Geometria;
+    src: url("../public/fonts/geometria_light.otf");
+  }
