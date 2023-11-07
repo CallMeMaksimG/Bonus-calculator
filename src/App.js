@@ -2,12 +2,17 @@ import { useState } from 'react';
 import './App.css';
 import AddSaleForm from './components/AddSaleForm';
 import DateInput from './components/DateInput';
+import SalesTable from './components/SalesTable';
 
 function App() {
     const [disabledForm, setDisabledForm] = useState(false);
     const [sales, setSales] = useState([]);
     const [startDate, setStartDate] = useState(new Date());
-    console.log(sales);
+    // console.log(sales);
+    const saleAtOnePercent = sales.filter((sale) => sale.percent === '1');
+    const saleAtThreePercent = sales.filter((sale) => sale.percent === '3');
+    // console.log(saleAtOnePercent)
+    // console.log(saleAtThreePercent);
     return (
         <div className="App">
             <div className="container">
@@ -39,42 +44,20 @@ function App() {
                     </section>
                 </main>
                 <section className="sales">
-                {sales.length > 0 && 
-                    <table className="sales__table">
-                        <caption>1%</caption>
-                        <thead>
-                            <tr>
-                                <th>Наименование</th>
-                                <th>Цена</th>
-                                <th>К выплате</th>
-                            </tr>
-                        </thead>
-                        {sales
-                            .filter(
-                                (sale) =>
-                                    startDate.getFullYear() === sale.year &&
-                                    startDate.getMonth() === sale.month &&
-                                    sale.percent === '1'
-                            )
-                            .map((sale) => {
-                                return (
-                                    <tbody>
-                                        <tr>
-                                            <td>{sale.title}</td>
-                                            <td>{sale.price} &#8381;</td>
-                                            <td>{sale.bonus} &#8381;</td>
-                                        </tr>
-                                    </tbody>
-                                );
-                            })}
-                        <tfoot>
-                            <tr>
-                              <td colSpan='2'>Итого</td>
-                              <td>{sales.reduce((acc, curentValue) => acc + curentValue.bonus, 0)} &#8381;</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-}
+                    {saleAtOnePercent.length > 0 && (
+                        <SalesTable
+                            percent="1"
+                            array={saleAtOnePercent}
+                            startDate={startDate}
+                        />
+                    )}
+                    {saleAtThreePercent.length > 0 && (
+                        <SalesTable
+                            percent="3"
+                            array={saleAtThreePercent}
+                            startDate={startDate}
+                        />
+                    )}
                 </section>
             </div>
         </div>
