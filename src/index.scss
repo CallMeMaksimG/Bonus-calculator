@@ -77,6 +77,41 @@ html {
 
 
 .sales__table {
-  padding-top: 40px;
+  margin-top: 40px;
   width: 100%;
+  border-collapse: collapse;
+  font-weight: 300;
+
+  caption {
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 500;
+  }
+  
+  thead {
+    background: #1b1b1b;
+    color: white;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+
+  tbody:nth-child(even) {
+    background: #d6d6d6;
+  }
+
+  tbody:nth-child(odd) {
+    background: #f7f7f7;
+  }
+
+  th, td {
+    border: 3px solid white;
+    padding: 10px 10px;
+    
+  }
+
+  tfoot {
+    background: #1b1b1b;
+    color: white;
+    font-weight: 500;
+  }
 }

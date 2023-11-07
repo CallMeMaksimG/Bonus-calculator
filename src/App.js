@@ -16,56 +16,65 @@ function App() {
                 </header>
                 <main className="main">
                     <section className="add-sale">
-                      <DateInput
-                          startDate={startDate}
-                          setStartDate={setStartDate}
-                      />
-                      <button
-                          className="add-sale-btn"
-                          onClick={() =>
-                              setDisabledForm(disabledForm ? false : true)
-                          }
-                      >
-                          Добавить
-                      </button>
-                      {disabledForm && (
-                          <AddSaleForm
-                              setDisabledForm={setDisabledForm}
-                              date={startDate}
-                              sales={sales}
-                              setSales={setSales}
-                          />
-                      )}
+                        <DateInput
+                            startDate={startDate}
+                            setStartDate={setStartDate}
+                        />
+                        <button
+                            className="add-sale-btn"
+                            onClick={() =>
+                                setDisabledForm(disabledForm ? false : true)
+                            }
+                        >
+                            Добавить
+                        </button>
+                        {disabledForm && (
+                            <AddSaleForm
+                                setDisabledForm={setDisabledForm}
+                                date={startDate}
+                                sales={sales}
+                                setSales={setSales}
+                            />
+                        )}
                     </section>
                 </main>
                 <section className="sales">
+                {sales.length > 0 && 
                     <table className="sales__table">
+                        <caption>1%</caption>
                         <thead>
-                            <th>1%</th>
-                        </thead>
-
-                        <thead>
-                            <td>Наименование</td>
-                            <td>Цена</td>
-                            <td>К выплате</td>
+                            <tr>
+                                <th>Наименование</th>
+                                <th>Цена</th>
+                                <th>К выплате</th>
+                            </tr>
                         </thead>
                         {sales
                             .filter(
                                 (sale) =>
                                     startDate.getFullYear() === sale.year &&
-                                    startDate.getMonth() === sale.month && 
+                                    startDate.getMonth() === sale.month &&
                                     sale.percent === '1'
                             )
                             .map((sale) => {
                                 return (
                                     <tbody>
-                                        <td>{sale.title}</td>
-                                        <td>{sale.price} &#8381;</td>
-                                        <td>{sale.bonus} &#8381;</td>
+                                        <tr>
+                                            <td>{sale.title}</td>
+                                            <td>{sale.price} &#8381;</td>
+                                            <td>{sale.bonus} &#8381;</td>
+                                        </tr>
                                     </tbody>
                                 );
                             })}
+                        <tfoot>
+                            <tr>
+                              <td colSpan='2'>Итого</td>
+                              <td>{sales.reduce((acc, curentValue) => acc + curentValue.bonus, 0)} &#8381;</td>
+                            </tr>
+                        </tfoot>
                     </table>
+}
                 </section>
             </div>
         </div>
