@@ -28,7 +28,12 @@ function SalesTable({ percent, array, startDate }) {
                 })}
             <tfoot>
                 <tr>
-                    <td colSpan="2">Итого</td>
+                    <td>Итого</td>
+                    <td>{array.reduce(
+                            (acc, curentValue) => acc + Number(curentValue.price),
+                            0
+                        )}{' '}
+                        &#8381;</td>
                     <td>
                         {array.reduce(
                             (acc, curentValue) => acc + curentValue.bonus,
