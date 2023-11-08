@@ -6,7 +6,7 @@ function AddSaleForm({ sales, setSales, date, setDisabledForm }) {
     const [price, setPrice] = useState('');
     const [percent, setPercent] = useState('');
     const [idSale, setIdSale] = useState(1);
-    const interestCalculation = (price, percent) => (Number(price) / 100) * Number(percent);
+    const interestCalculation = (price, percent) => Math.round((Number(price) / 100) * Number(percent));
 
     const addSalesHandler = (title, price, percent) => {
         const newSale = {

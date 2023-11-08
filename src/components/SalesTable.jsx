@@ -30,13 +30,13 @@ function SalesTable({ percent, array, startDate }) {
                 <tr>
                     <td>Итого</td>
                     <td>{array.reduce(
-                            (acc, curentValue) => acc + Number(curentValue.price),
+                            (acc, curentValue) => Math.round(acc + Number(curentValue.price)),
                             0
                         )}{' '}
                         &#8381;</td>
                     <td>
                         {array.reduce(
-                            (acc, curentValue) => acc + curentValue.bonus,
+                            (acc, curentValue) => Math.round(acc + curentValue.bonus),
                             0
                         )}{' '}
                         &#8381;

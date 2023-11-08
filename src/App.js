@@ -9,8 +9,9 @@ function App() {
     const [sales, setSales] = useState([]);
     const [startDate, setStartDate] = useState(new Date());
     // console.log(sales);
-    const saleAtOnePercent = sales.filter((sale) => sale.percent === '1');
-    const saleAtThreePercent = sales.filter((sale) => sale.percent === '3');
+    const salesThisYearAndMonth = sales.filter((sale) => sale.year === startDate.getFullYear() && sale.month === startDate.getMonth());
+    const saleAtOnePercent = salesThisYearAndMonth.filter((sale) => sale.percent === '1');
+    const saleAtThreePercent = salesThisYearAndMonth.filter((sale) => sale.percent === '3');
     // console.log(saleAtOnePercent)
     // console.log(saleAtThreePercent);
     return (
@@ -58,7 +59,7 @@ function App() {
                             startDate={startDate}
                         />
                     )}
-                    {sales.length > 0 && (
+                    {salesThisYearAndMonth.length > 0 && (
                         <div
                             style={{ marginTop: '30px', marginBottom: '30px' }}
                         >
@@ -70,9 +71,9 @@ function App() {
                             >
                                 <p>Итоговая сумма продаж за месяц</p>
                                 <span>
-                                    {sales.reduce(
+                                    {salesThisYearAndMonth.reduce(
                                         (acc, curentValue) =>
-                                            acc + Number(curentValue.price),
+                                            Math.round(acc + Number(curentValue.price)),
                                         0
                                     )}{' '}
                                     &#8381;
@@ -86,9 +87,9 @@ function App() {
                             >
                                 <p>К выплате %</p>
                                 <span>
-                                    {sales.reduce(
+                                    {salesThisYearAndMonth.reduce(
                                         (acc, curentValue) =>
-                                            acc + Number(curentValue.bonus),
+                                            Math.round(acc + Number(curentValue.bonus)),
                                         0
                                     )}{' '}
                                     &#8381;
