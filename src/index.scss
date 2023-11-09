@@ -129,6 +129,11 @@ html {
   justify-content: center;
   gap: 10px;
 
+  label {
+    // padding-bottom: 10px;
+    position: relative;
+  }
+
   input {
     border: 1px solid #dadce1;
     width: 100%;
@@ -139,6 +144,10 @@ html {
     &::placeholder {
         font-size: 13px;
         font-weight: 300;
+    }
+
+    &.error {
+      border: 1px solid red;
     }
     
   }
@@ -152,6 +161,11 @@ html {
     border-radius: 10px;
     padding: 8.5px 0;
     margin-top: 10px;
+    transition: opacity .2s ease-in;
+
+    &:disabled {
+      opacity: .27;
+    }
   }
 }
 
@@ -170,4 +184,15 @@ html {
   padding-top: 10px;
   text-align: end;
   color: black;
+}
+
+
+
+.registration__form-error {
+  color: red;
+  font-size: 10px;
+}
+
+.error {
+  border: 1px solid red!important;
 }
