@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 import './AddSaleForm.scss';
 
 function AddSaleForm({ sales, setSales, date, setDisabledForm }) {
@@ -21,6 +22,7 @@ function AddSaleForm({ sales, setSales, date, setDisabledForm }) {
         setSales([...sales, newSale]);
         setIdSale(idSale + 1);
         setDisabledForm(false);
+        axios.post('https://654ccf6577200d6ba8597655.mockapi.io/sales', newSale);
     };
     const onSubmitHandler = (event) => {
         event.preventDefault();

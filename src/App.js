@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import axios from 'axios';
 import './App.css';
 import AddSaleForm from './components/AddSaleForm';
 import DateInput from './components/DateInput';
@@ -11,27 +12,43 @@ function App() {
     const [disabledForm, setDisabledForm] = useState(false);
     const [sales, setSales] = useState([]);
     const [startDate, setStartDate] = useState(new Date());
-    // console.log(sales);
-    const salesThisYearAndMonth = sales.filter(
-        (sale) =>
-            sale.year === startDate.getFullYear() &&
-            sale.month === startDate.getMonth()
-    );
-    const saleAtOnePercent = salesThisYearAndMonth.filter(
-        (sale) => sale.percent === '1'
-    );
-    const saleAtThreePercent = salesThisYearAndMonth.filter(
-        (sale) => sale.percent === '3'
-    );
+    // const [salesThisYearAndMonth, setSalesThisYearAndMonth] = useState([])
+    console.log(sales);
+    useEffect(() => {
+        async function fetchData() {
+            const salesResponse = await axios.get(
+                'https://654ccf6577200d6ba8597655.mockapi.io/sales'
+            );
+            // console.log(salesResponse.data);
+            setSales(salesResponse.data);
+          }
+          
+          fetchData();
+        }, []);
+        
+        const salesThisYearAndMonth = sales.filter(
+            (sale) =>
+                sale.year == startDate.getFullYear() &&
+                sale.month == startDate.getMonth()
+        );
+    
+        console.log(salesThisYearAndMonth + 'this month');
+        const saleAtOnePercent = salesThisYearAndMonth.filter(
+            (sale) => Number(sale.percent) === 1
+        );
+        const saleAtThreePercent = salesThisYearAndMonth.filter(
+            (sale) => Number(sale.percent) === 3
+        );
     // console.log(saleAtOnePercent)
     // console.log(saleAtThreePercent);
     return (
         <BrowserRouter>
             <div className="App">
                 <div className="container">
-                    <Link to="/"><header className="header">
-                        <img src="../img/logo.svg"></img>
-                    </header>
+                    <Link to="/">
+                        <header className="header">
+                            <img src="../img/logo.svg"></img>
+                        </header>
                     </Link>
                     <Routes>
                         <Route
