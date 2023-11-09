@@ -12,33 +12,36 @@ function App() {
     const [disabledForm, setDisabledForm] = useState(false);
     const [sales, setSales] = useState([]);
     const [startDate, setStartDate] = useState(new Date());
-    // const [salesThisYearAndMonth, setSalesThisYearAndMonth] = useState([])
-    console.log(sales);
+    // console.log(sales);
     useEffect(() => {
         async function fetchData() {
-            const salesResponse = await axios.get(
-                'https://654ccf6577200d6ba8597655.mockapi.io/sales'
-            );
-            // console.log(salesResponse.data);
-            setSales(salesResponse.data);
-          }
-          
-          fetchData();
-        }, []);
-        
-        const salesThisYearAndMonth = sales.filter(
-            (sale) =>
-                sale.year == startDate.getFullYear() &&
-                sale.month == startDate.getMonth()
-        );
-    
-        console.log(salesThisYearAndMonth + 'this month');
-        const saleAtOnePercent = salesThisYearAndMonth.filter(
-            (sale) => Number(sale.percent) === 1
-        );
-        const saleAtThreePercent = salesThisYearAndMonth.filter(
-            (sale) => Number(sale.percent) === 3
-        );
+            try {
+                const salesResponse = await axios.get(
+                    'https://654ccf6577200d6ba8597655.mockapi.io/sales'
+                );
+                setSales(salesResponse.data);
+            } catch (error) {
+                alert('Ошибка при запросе данных');
+                console.error(error);
+            }
+        }
+
+        fetchData();
+    }, []);
+
+    const salesThisYearAndMonth = sales.filter(
+        (sale) =>
+            sale.year == startDate.getFullYear() &&
+            sale.month == startDate.getMonth()
+    );
+
+    console.log(salesThisYearAndMonth + 'this month');
+    const saleAtOnePercent = salesThisYearAndMonth.filter(
+        (sale) => Number(sale.percent) === 1
+    );
+    const saleAtThreePercent = salesThisYearAndMonth.filter(
+        (sale) => Number(sale.percent) === 3
+    );
     // console.log(saleAtOnePercent)
     // console.log(saleAtThreePercent);
     return (

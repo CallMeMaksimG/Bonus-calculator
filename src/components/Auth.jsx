@@ -80,7 +80,9 @@ const Auth = () => {
                     name="password"
                     value={password}
                 />
-                <button disabled={!formValid} type="submit">Войти</button>
+                <button disabled={!formValid} type="submit">
+                    Войти
+                </button>
             </form>
             <Link to="../registration" className="auth__link">
                 Регистрация

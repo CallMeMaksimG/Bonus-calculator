@@ -118,7 +118,9 @@ function Registraton() {
                     name="confirmPassword"
                     value={confirmPassword}
                 />
-                <button disabled={!formValid} type="submit">Зарегистрироваться</button>
+                <button disabled={!formValid} type="submit">
+                    Зарегистрироваться
+                </button>
             </form>
         </div>
     );
