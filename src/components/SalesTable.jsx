@@ -1,4 +1,5 @@
 function SalesTable({ percent, array, startDate }) {
+    const interestCalculation = (price, percent) => Math.round((Number(price) / 100) * Number(percent));
     return (
         <table className="sales__table">
             <caption>{percent} %</caption>
@@ -12,8 +13,8 @@ function SalesTable({ percent, array, startDate }) {
             {array
                 .filter(
                     (sale) =>
-                        startDate.getFullYear() === sale.year &&
-                        startDate.getMonth() === sale.month
+                        startDate.getFullYear() === Number(sale.year) &&
+                        startDate.getMonth() === Number(sale.month)
                 )
                 .map((sale) => {
                     return (
@@ -21,7 +22,7 @@ function SalesTable({ percent, array, startDate }) {
                             <tr>
                                 <td>{sale.title}</td>
                                 <td>{sale.price} &#8381;</td>
-                                <td>{sale.bonus} &#8381;</td>
+                                <td>{interestCalculation(sale.price, sale.percent)} &#8381;</td>
                             </tr>
                         </tbody>
                     );
@@ -36,7 +37,7 @@ function SalesTable({ percent, array, startDate }) {
                         &#8381;</td>
                     <td>
                         {array.reduce(
-                            (acc, curentValue) => Math.round(acc + curentValue.bonus),
+                            (acc, curentValue) => Math.round(acc + Number(curentValue.bonus)),
                             0
                         )}{' '}
                         &#8381;

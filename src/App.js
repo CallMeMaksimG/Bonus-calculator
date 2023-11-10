@@ -17,8 +17,9 @@ function App() {
         async function fetchData() {
             try {
                 const salesResponse = await axios.get(
-                    'https://654ccf6577200d6ba8597655.mockapi.io/sales'
+                    'http://localhost:8888/bonus-calculator/sales.php'
                 );
+                // console.log(salesResponse.data);
                 setSales(salesResponse.data);
             } catch (error) {
                 alert('Ошибка при запросе данных');
@@ -31,17 +32,19 @@ function App() {
 
     const salesThisYearAndMonth = sales.filter(
         (sale) =>
-            sale.year == startDate.getFullYear() &&
-            sale.month == startDate.getMonth()
+          Number(sale.year) === startDate.getFullYear() &&
+          Number(sale.month) === startDate.getMonth()
     );
 
     console.log(salesThisYearAndMonth + 'this month');
     const saleAtOnePercent = salesThisYearAndMonth.filter(
-        (sale) => Number(sale.percent) === 1
+        (sale) => sale.percent === '1'
     );
+    console.log(saleAtOnePercent);
     const saleAtThreePercent = salesThisYearAndMonth.filter(
-        (sale) => Number(sale.percent) === 3
+        (sale) => sale.percent === '3'
     );
+      // console.log(saleAtThreePercent)
     // console.log(saleAtOnePercent)
     // console.log(saleAtThreePercent);
     return (

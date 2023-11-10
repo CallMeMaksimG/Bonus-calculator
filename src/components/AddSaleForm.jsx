@@ -7,11 +7,13 @@ function AddSaleForm({ sales, setSales, date, setDisabledForm }) {
     const [price, setPrice] = useState('');
     const [percent, setPercent] = useState('');
     const [idSale, setIdSale] = useState(1);
-    const interestCalculation = (price, percent) => Math.round((Number(price) / 100) * Number(percent));
+    const interestCalculation = (price, percent) =>
+        Math.round((Number(price) / 100) * Number(percent));
 
     const addSalesHandler = (title, price, percent) => {
         const newSale = {
             id: idSale,
+            employee_id: 1,
             title,
             price,
             percent,
@@ -22,7 +24,6 @@ function AddSaleForm({ sales, setSales, date, setDisabledForm }) {
         setSales([...sales, newSale]);
         setIdSale(idSale + 1);
         setDisabledForm(false);
-        axios.post('https://654ccf6577200d6ba8597655.mockapi.io/sales', newSale);
     };
     const onSubmitHandler = (event) => {
         event.preventDefault();
@@ -30,6 +31,24 @@ function AddSaleForm({ sales, setSales, date, setDisabledForm }) {
         setTitle('');
         setPrice('');
         setPercent('');
+
+        let formData = new FormData();
+        formData.append('employee_id', 1);
+        formData.append('title', title);
+        formData.append('price', price);
+        formData.append('percent', percent);
+        formData.append('bonus', interestCalculation(price, percent));
+        formData.append('month', date.getMonth());
+        formData.append('year', date.getFullYear());
+
+        axios({
+            method: 'post',
+            url: 'http://localhost:8888/bonus-calculator/sales.php',
+            data: formData,
+            config: { headers: { 'Content-type': 'multipart/form-data' } },
+        }).then(function (response) {
+            console.log(response);
+        });
     };
     return (
         <form onSubmit={onSubmitHandler} className="add-sale__form">
