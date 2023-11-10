@@ -25,7 +25,7 @@ function AddSaleForm({ sales, setSales, date, setDisabledForm }) {
         setIdSale(idSale + 1);
         setDisabledForm(false);
     };
-    const onSubmitHandler = (event) => {
+    const onSubmitHandler = async (event) => {
         event.preventDefault();
         addSalesHandler(title, price, percent);
         setTitle('');
@@ -41,14 +41,18 @@ function AddSaleForm({ sales, setSales, date, setDisabledForm }) {
         formData.append('month', date.getMonth());
         formData.append('year', date.getFullYear());
 
-        axios({
+        await axios({
             method: 'post',
             url: 'http://localhost:8888/bonus-calculator/sales.php',
             data: formData,
             config: { headers: { 'Content-type': 'multipart/form-data' } },
-        }).then(function (response) {
-            console.log(response);
-        });
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
     };
     return (
         <form onSubmit={onSubmitHandler} className="add-sale__form">
