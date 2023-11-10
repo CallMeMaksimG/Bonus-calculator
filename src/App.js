@@ -7,6 +7,7 @@ import DateInput from './components/DateInput';
 import SalesTable from './components/SalesTable';
 import Auth from './components/Auth';
 import Registraton from './components/Registration';
+import TotalResultAtMonth from './components/TotalResultAtMonth';
 
 function App() {
     const [disabledForm, setDisabledForm] = useState(false);
@@ -32,8 +33,8 @@ function App() {
 
     const salesThisYearAndMonth = sales.filter(
         (sale) =>
-          Number(sale.year) === startDate.getFullYear() &&
-          Number(sale.month) === startDate.getMonth()
+            Number(sale.year) === startDate.getFullYear() &&
+            Number(sale.month) === startDate.getMonth()
     );
 
     console.log(salesThisYearAndMonth + 'this month');
@@ -44,7 +45,7 @@ function App() {
     const saleAtThreePercent = salesThisYearAndMonth.filter(
         (sale) => sale.percent === '3'
     );
-      // console.log(saleAtThreePercent)
+    // console.log(saleAtThreePercent)
     // console.log(saleAtOnePercent)
     // console.log(saleAtThreePercent);
     return (
@@ -104,66 +105,9 @@ function App() {
                                             />
                                         )}
                                         {salesThisYearAndMonth.length > 0 && (
-                                            <div
-                                                style={{
-                                                    marginTop: '30px',
-                                                    marginBottom: '30px',
-                                                }}
-                                            >
-                                                <div
-                                                    style={{
-                                                        display: 'flex',
-                                                        justifyContent:
-                                                            'space-between',
-                                                    }}
-                                                >
-                                                    <p>
-                                                        Итоговая сумма продаж за
-                                                        месяц
-                                                    </p>
-                                                    <span>
-                                                        {salesThisYearAndMonth.reduce(
-                                                            (
-                                                                acc,
-                                                                curentValue
-                                                            ) =>
-                                                                Math.round(
-                                                                    acc +
-                                                                        Number(
-                                                                            curentValue.price
-                                                                        )
-                                                                ),
-                                                            0
-                                                        )}{' '}
-                                                        &#8381;
-                                                    </span>
-                                                </div>
-                                                <div
-                                                    style={{
-                                                        display: 'flex',
-                                                        justifyContent:
-                                                            'space-between',
-                                                    }}
-                                                >
-                                                    <p>К выплате %</p>
-                                                    <span>
-                                                        {salesThisYearAndMonth.reduce(
-                                                            (
-                                                                acc,
-                                                                curentValue
-                                                            ) =>
-                                                                Math.round(
-                                                                    acc +
-                                                                        Number(
-                                                                            curentValue.bonus
-                                                                        )
-                                                                ),
-                                                            0
-                                                        )}{' '}
-                                                        &#8381;
-                                                    </span>
-                                                </div>
-                                            </div>
+                                            <TotalResultAtMonth
+                                                array={salesThisYearAndMonth}
+                                            />
                                         )}
                                     </section>
                                 </main>

@@ -196,3 +196,19 @@ html {
 .error {
   border: 1px solid red!important;
 }
+
+
+
+
+
+
+// total res
+
+.total-result {
+  margin: 30px 0;
+}
+
+.total-result__sales, .total-result__bonus {
+  display: flex;
+  justify-content: space-between;
+}
