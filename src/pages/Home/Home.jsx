@@ -1,7 +1,8 @@
-import DateInput from '../../components/DateInput';
-import AddSaleForm from '../../components/AddSaleForm';
-import SalesTable from '../../components/SalesTable';
-import TotalResultAtMonth from '../../components/TotalResultAtMonth';
+import DateInput from '../../components/DateInput/DateInput';
+import AddSaleForm from '../../components/AddSaleForm/AddSaleForm';
+import SalesTable from '../../components/SalesTable/SalesTable';
+import TotalResultAtMonth from '../../components/TotalResultAtMonth/TotalResultAtMonth';
+import './Home.scss';
 
 function Home({
     startDate,

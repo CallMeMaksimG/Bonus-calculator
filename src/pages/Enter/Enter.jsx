@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import './Enter.scss';
 
 const Enter = () => {
     const [login, setLogin] = useState('');

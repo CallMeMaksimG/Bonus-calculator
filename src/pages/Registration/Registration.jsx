@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import './Registration.scss';
 
 function Registraton() {
     const [login, setLogin] = useState('');

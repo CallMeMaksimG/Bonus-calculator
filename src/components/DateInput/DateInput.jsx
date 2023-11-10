@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 import 'react-datepicker/dist/react-datepicker.css';
 import buildLocalizeFn from 'date-fns/locale/_lib/buildLocalizeFn';
-import '../index.scss';
+import './DateInput.scss';
 
 const monthValues = {
     narrow: ['Я', 'Ф', 'М', 'А', 'М', 'И', 'И', 'А', 'С', 'О', 'Н', 'Д'],

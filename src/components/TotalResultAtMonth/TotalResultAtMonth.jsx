@@ -1,3 +1,5 @@
+import './TotalResultAtMonth.scss';
+
 const totalCalculator = (arr, key) => {
     return arr
         .reduce(
