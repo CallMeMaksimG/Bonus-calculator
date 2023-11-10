@@ -1,7 +1,16 @@
 import './SalesTable.scss';
 
 function SalesTable({ percent, array, startDate }) {
-    const interestCalculation = (price, percent) =>
+    const totalCalculator = (arr, key) => {
+        return arr
+            .reduce(
+                (acc, curentValue) =>
+                    Math.round(acc + Number(curentValue[key])),
+                0
+            )
+            .toLocaleString();
+    };
+    const bonusCalculation = (price, percent) =>
         Math.round((Number(price) / 100) * Number(percent));
     return (
         <table className="sales__table">
@@ -26,10 +35,7 @@ function SalesTable({ percent, array, startDate }) {
                                 <td>{sale.title}</td>
                                 <td>{sale.price} &#8381;</td>
                                 <td>
-                                    {interestCalculation(
-                                        sale.price,
-                                        sale.percent
-                                    )}{' '}
+                                    {bonusCalculation(sale.price, sale.percent)}{' '}
                                     &#8381;
                                 </td>
                             </tr>
@@ -40,19 +46,11 @@ function SalesTable({ percent, array, startDate }) {
                 <tr>
                     <td>Итого</td>
                     <td>
-                        {array.reduce(
-                            (acc, curentValue) =>
-                                Math.round(acc + Number(curentValue.price)),
-                            0
-                        )}{' '}
+                        {totalCalculator(array, 'price')}
                         &#8381;
                     </td>
                     <td>
-                        {array.reduce(
-                            (acc, curentValue) =>
-                                Math.round(acc + Number(curentValue.bonus)),
-                            0
-                        )}{' '}
+                        {totalCalculator(array, 'bonus')}
                         &#8381;
                     </td>
                 </tr>
