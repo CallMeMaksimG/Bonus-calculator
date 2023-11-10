@@ -2,12 +2,9 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
-import AddSaleForm from './components/AddSaleForm';
-import DateInput from './components/DateInput';
-import SalesTable from './components/SalesTable';
-import Auth from './components/Auth';
-import Registraton from './components/Registration';
-import TotalResultAtMonth from './components/TotalResultAtMonth';
+import Home from './pages/Home/Home';
+import Enter from './pages/Enter/Enter';
+import Registraton from './pages/Registration/Registration';
 
 function App() {
     const [disabledForm, setDisabledForm] = useState(false);
@@ -27,7 +24,6 @@ function App() {
                 console.error(error);
             }
         }
-
         fetchData();
     }, []);
 
@@ -61,59 +57,22 @@ function App() {
                         <Route
                             path="/"
                             element={
-                                <main className="main">
-                                    <section className="add-sale">
-                                        <DateInput
-                                            startDate={startDate}
-                                            setStartDate={setStartDate}
-                                        />
-                                        <button
-                                            className="add-sale-btn"
-                                            onClick={() =>
-                                                setDisabledForm(
-                                                    disabledForm ? false : true
-                                                )
-                                            }
-                                        >
-                                            Добавить
-                                        </button>
-                                        {disabledForm && (
-                                            <AddSaleForm
-                                                setDisabledForm={
-                                                    setDisabledForm
-                                                }
-                                                date={startDate}
-                                                sales={sales}
-                                                setSales={setSales}
-                                            />
-                                        )}
-                                    </section>
-
-                                    <section className="sales">
-                                        {saleAtOnePercent.length > 0 && (
-                                            <SalesTable
-                                                percent="1"
-                                                array={saleAtOnePercent}
-                                                startDate={startDate}
-                                            />
-                                        )}
-                                        {saleAtThreePercent.length > 0 && (
-                                            <SalesTable
-                                                percent="3"
-                                                array={saleAtThreePercent}
-                                                startDate={startDate}
-                                            />
-                                        )}
-                                        {salesThisYearAndMonth.length > 0 && (
-                                            <TotalResultAtMonth
-                                                array={salesThisYearAndMonth}
-                                            />
-                                        )}
-                                    </section>
-                                </main>
+                                <Home
+                                    startDate={startDate}
+                                    setStartDate={setStartDate}
+                                    disabledForm={disabledForm}
+                                    setDisabledForm={setDisabledForm}
+                                    sales={sales}
+                                    setSales={setSales}
+                                    saleAtOnePercent={saleAtOnePercent}
+                                    saleAtThreePercent={saleAtThreePercent}
+                                    salesThisYearAndMonth={
+                                        salesThisYearAndMonth
+                                    }
+                                />
                             }
                         ></Route>
-                        <Route path="login" element={<Auth />}></Route>
+                        <Route path="login" element={<Enter />}></Route>
                         <Route
                             path="registration"
                             element={<Registraton />}

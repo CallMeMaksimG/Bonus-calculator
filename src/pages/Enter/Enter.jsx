@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const Auth = () => {
+const Enter = () => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [loginDirty, setLoginDirty] = useState(false);
@@ -91,4 +91,4 @@ const Auth = () => {
     );
 };
 
-export default Auth;
+export default Enter;
