@@ -1,17 +1,71 @@
 import { useState } from 'react';
+import axios from 'axios';
 import './SalesTable.scss';
 
-function SalesTable({ percent, array, startDate }) {
+function SalesTable({
+    percent,
+    array,
+    startDate,
+    returned,
+    setReturned,
+    setSales,
+}) {
     const [modalOpen, setModalOpen] = useState(false);
+    const [modalItemInfo, setModalItemInfo] = useState([]);
     const onClickSaleItem = (e) => {
         setModalOpen(true);
-        // console.log(e.target.parentNode);
         const saleItem = e.target.parentNode;
-        const saleTitle = saleItem.querySelector('title');
-        console.log(saleItem);
+        const saleItemId = saleItem.dataset.id;
+
+        let formData = new FormData();
+        formData.append('sales_id', saleItemId);
+        async function fetchData() {
+            try {
+                axios({
+                    method: 'get',
+                    url:
+                        'http://localhost:8888/bonus-calculator/sale.php/?sales_id=' +
+                        saleItemId,
+                    data: formData,
+                }).then((result) => setModalItemInfo(result.data));
+            } catch (error) {
+                alert('Ошибка при запросе данных');
+                console.error(error);
+            }
+        }
+        fetchData();
+    };
+
+    const onClickReturnBtn = () => {
+        let saleItemId = '';
+        modalItemInfo.forEach((sale) => (saleItemId = sale.sales_id));
+        console.log(saleItemId);
+        let formData = new FormData();
+        formData.append('sales_id', saleItemId);
+        formData.append('returns', 1);
+        async function fetchData() {
+            try {
+                await axios({
+                    method: 'post',
+                    url:
+                        'http://localhost:8888/bonus-calculator/sale.php/?sales_id=' +
+                        saleItemId,
+                    data: formData,
+                    config: {
+                        headers: { 'Content-type': 'multipart/form-data' },
+                    },
+                });
+            } catch (error) {
+                alert('Ошибка при запросе данных');
+                console.error(error);
+            }
+        }
+        fetchData();
+        setModalOpen(false);
     };
     const totalCalculator = (arr, key) => {
         return arr
+            .filter((sale) => sale.returns === '0')
             .reduce(
                 (acc, curentValue) =>
                     Math.round(acc + Number(curentValue[key])),
@@ -27,15 +81,24 @@ function SalesTable({ percent, array, startDate }) {
                 <>
                     <div className="overlay"></div>
                     <div className="modal-sale">
-                        <div className="modal-sale__item-info">
-                            <p>New Balance 990v3 JJJJound</p>
-                            <p>
-                                <span>Цена</span> 58900 &#8381;
-                            </p>
-                            <p>
-                                <span>К выплате</span> 589 &#8381;
-                            </p>
-                        </div>
+                        {modalItemInfo.map((item) => {
+                            return (
+                                <div
+                                    key={item.sales_id}
+                                    className="modal-sale__item-info"
+                                >
+                                    <p>{item.title}</p>
+                                    <p>
+                                        <span>Цена</span> {item.price} &#8381;
+                                    </p>
+                                    <p>
+                                        <span>К выплате</span> {item.bonus}{' '}
+                                        &#8381;
+                                    </p>
+                                </div>
+                            );
+                        })}
+
                         <div className="modal-sale__buttons">
                             <button
                                 onClick={() => setModalOpen(false)}
@@ -43,7 +106,10 @@ function SalesTable({ percent, array, startDate }) {
                             >
                                 Закрыть
                             </button>
-                            <button className="modal-sale__buttons-return">
+                            <button
+                                onClick={onClickReturnBtn}
+                                className="modal-sale__buttons-return"
+                            >
                                 Возврат
                             </button>
                         </div>
@@ -70,6 +136,9 @@ function SalesTable({ percent, array, startDate }) {
                         .map((sale) => {
                             return (
                                 <tr
+                                    className={
+                                        sale.returns === '1' ? 'returns' : ''
+                                    }
                                     key={sale.sales_id}
                                     data-id={sale.sales_id}
                                     onClick={onClickSaleItem}

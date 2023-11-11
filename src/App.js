@@ -11,13 +11,15 @@ function App() {
     const [disabledForm, setDisabledForm] = useState(false);
     const [sales, setSales] = useState([]);
     const [startDate, setStartDate] = useState(new Date());
+    const [returned, setReturned] = useState(false);
     useEffect(() => {
         async function fetchData() {
             try {
                 const salesResponse = await axios.get(
                     'http://localhost:8888/bonus-calculator/sales.php'
                 );
-                setSales(salesResponse.data);
+                console.log(salesResponse)
+                setSales(...sales, salesResponse.data);
             } catch (error) {
                 alert('Ошибка при запросе данных');
                 console.error(error);
@@ -25,7 +27,6 @@ function App() {
         }
         fetchData();
     }, []);
-    console.log(sales.forEach((sale) => console.log(sale.sales_id)))
     const salesThisYearAndMonth = sales.filter(
         (sale) =>
             Number(sale.year) === startDate.getFullYear() &&
@@ -60,6 +61,8 @@ function App() {
                                     salesThisYearAndMonth={
                                         salesThisYearAndMonth
                                     }
+                                    returnded={returned}
+                                    setReturned={setReturned}
                                 />
                             }
                         ></Route>

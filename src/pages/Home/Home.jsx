@@ -14,6 +14,8 @@ function Home({
     saleAtOnePercent,
     saleAtThreePercent,
     salesThisYearAndMonth,
+    returnded,
+    setReturned,
 }) {
     return (
         <main className="main">
@@ -38,16 +40,24 @@ function Home({
             <section className="sales">
                 {saleAtOnePercent.length > 0 && (
                     <SalesTable
+                        sales={sales}
+                        setSales={sales}
                         percent="1"
                         array={saleAtOnePercent}
                         startDate={startDate}
+                        returned={returnded}
+                        setReturned={setReturned}
                     />
                 )}
                 {saleAtThreePercent.length > 0 && (
                     <SalesTable
+                        sales={sales}
+                        setSales={sales}
                         percent="3"
                         array={saleAtThreePercent}
                         startDate={startDate}
+                        returned={returnded}
+                        setReturned={setReturned}
                     />
                 )}
                 {salesThisYearAndMonth.length > 0 && (

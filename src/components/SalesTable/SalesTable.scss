@@ -47,7 +47,7 @@
     position: fixed;
     top:0;
     left: 0;
-    opacity: 0.5;
+    opacity: 0.7;
 }
 .modal-sale {
     position: fixed;
@@ -102,4 +102,9 @@
     width: 130px;
     font-size: 15px;
     color: white;
+}
+
+.returns {
+    opacity: 0.2;
+    text-decoration: line-through;
 }

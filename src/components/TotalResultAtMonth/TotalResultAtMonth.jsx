@@ -1,7 +1,7 @@
 import './TotalResultAtMonth.scss';
 
 const totalCalculator = (arr, key) => {
-    return arr
+    return arr.filter((sale) => sale.returns === '0')
         .reduce(
             (acc, curentValue) => Math.round(acc + Number(curentValue[key])),
             0
