@@ -5,8 +5,11 @@ function SalesTable({ percent, array, startDate }) {
     const [modalOpen, setModalOpen] = useState(false);
     const onClickSaleItem = (e) => {
         setModalOpen(true);
-        console.log(e.target.parentNode);
-    }
+        // console.log(e.target.parentNode);
+        const saleItem = e.target.parentNode;
+        const saleTitle = saleItem.querySelector('title');
+        console.log(saleItem);
+    };
     const totalCalculator = (arr, key) => {
         return arr
             .reduce(
@@ -34,7 +37,10 @@ function SalesTable({ percent, array, startDate }) {
                             </p>
                         </div>
                         <div className="modal-sale__buttons">
-                            <button onClick={() => setModalOpen(false)} className="modal-sale__buttons-close">
+                            <button
+                                onClick={() => setModalOpen(false)}
+                                className="modal-sale__buttons-close"
+                            >
                                 Закрыть
                             </button>
                             <button className="modal-sale__buttons-return">
@@ -54,16 +60,20 @@ function SalesTable({ percent, array, startDate }) {
                         <th>К выплате</th>
                     </tr>
                 </thead>
-                {array
-                    .filter(
-                        (sale) =>
-                            startDate.getFullYear() === Number(sale.year) &&
-                            startDate.getMonth() === Number(sale.month)
-                    )
-                    .map((sale) => {
-                        return (
-                            <tbody>
-                                <tr onClick={onClickSaleItem}>
+                <tbody>
+                    {array
+                        .filter(
+                            (sale) =>
+                                startDate.getFullYear() === Number(sale.year) &&
+                                startDate.getMonth() === Number(sale.month)
+                        )
+                        .map((sale) => {
+                            return (
+                                <tr
+                                    key={sale.sales_id}
+                                    data-id={sale.sales_id}
+                                    onClick={onClickSaleItem}
+                                >
                                     <td>{sale.title}</td>
                                     <td>{sale.price} &#8381;</td>
                                     <td>
@@ -74,9 +84,9 @@ function SalesTable({ percent, array, startDate }) {
                                         &#8381;
                                     </td>
                                 </tr>
-                            </tbody>
-                        );
-                    })}
+                            );
+                        })}
+                </tbody>
                 <tfoot>
                     <tr>
                         <td>Итого</td>

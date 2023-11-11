@@ -25,7 +25,7 @@ function App() {
         }
         fetchData();
     }, []);
-
+    console.log(sales.forEach((sale) => console.log(sale.sales_id)))
     const salesThisYearAndMonth = sales.filter(
         (sale) =>
             Number(sale.year) === startDate.getFullYear() &&

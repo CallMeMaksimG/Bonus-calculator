@@ -16,14 +16,16 @@
         text-transform: uppercase;
         font-size: 12px;
     }
-
-    tbody:nth-child(even) {
-        background: #d6d6d6;
+    tbody {
+        tr:nth-child(even) {
+            background: #d6d6d6;
+        }
+    
+        tr:nth-child(odd) {
+            background: #f7f7f7;
+        }
     }
-
-    tbody:nth-child(odd) {
-        background: #f7f7f7;
-    }
+    
 
     th,
     td {
