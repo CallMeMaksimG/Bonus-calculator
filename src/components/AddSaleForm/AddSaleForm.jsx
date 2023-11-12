@@ -1,34 +1,37 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AddSaleForm.scss';
 
-function AddSaleForm({ sales, setSales, date, setDisabledForm }) {
+function AddSaleForm({
+    sales,
+    setSales,
+    date,
+    setDisabledForm,
+    setChangeArray,
+}) {
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [percent, setPercent] = useState('');
-
-    const [returns, setReturns] = useState(0);
     const interestCalculation = (price, percent) =>
         Math.round((Number(price) / 100) * Number(percent));
 
-    // const addSalesHandler = (title, price, percent) => {
-    //     const newSale = {
-    //         employee_id: 1,
-    //         title,
-    //         price,
-    //         percent,
-    //         bonus: interestCalculation(price, percent),
-    //         month: date.getMonth(),
-    //         year: date.getFullYear(),
-    //         returns: returns
-    //     };
-    //     setSales([...sales, newSale]);
-    //     // setIdSale(idSale + 1);
-    //     setDisabledForm(false);
-    // };
+    const addSalesHandler = (title, price, percent) => {
+        const newSale = {
+            employee_id: 1,
+            title,
+            price,
+            percent,
+            bonus: interestCalculation(price, percent),
+            month: date.getMonth(),
+            year: date.getFullYear(),
+        };
+        setSales([...sales, newSale]);
+        setChangeArray([sales]);
+        setDisabledForm(false);
+    };
     const onSubmitHandler = async (event) => {
         event.preventDefault();
-        // addSalesHandler(title, price, percent);
+        addSalesHandler(title, price, percent);
         setTitle('');
         setPrice('');
         setPercent('');
@@ -41,8 +44,6 @@ function AddSaleForm({ sales, setSales, date, setDisabledForm }) {
         formData.append('bonus', interestCalculation(price, percent));
         formData.append('month', date.getMonth());
         formData.append('year', date.getFullYear());
-        formData.append('returns', returns);
-
         await axios({
             method: 'post',
             url: 'http://localhost:8888/bonus-calculator/sales.php',

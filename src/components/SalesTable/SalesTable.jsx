@@ -6,8 +6,8 @@ function SalesTable({
     percent,
     array,
     startDate,
-    returned,
-    setReturned,
+    setChangeArray,
+    sales,
     setSales,
 }) {
     const [modalOpen, setModalOpen] = useState(false);
@@ -34,38 +34,31 @@ function SalesTable({
             }
         }
         fetchData();
+        setSales([...sales, sales]);
     };
 
-    const onClickReturnBtn = () => {
-        let saleItemId = '';
-        modalItemInfo.forEach((sale) => (saleItemId = sale.sales_id));
-        console.log(saleItemId);
+    const onClickReturnBtn = async (id) => {
+        modalItemInfo.forEach((sale) => (id = sale.sales_id));
+        console.log(array);
+        // console.log(saleItemId);
         let formData = new FormData();
-        formData.append('sales_id', saleItemId);
-        formData.append('returns', 1);
-        async function fetchData() {
-            try {
-                await axios({
-                    method: 'post',
-                    url:
-                        'http://localhost:8888/bonus-calculator/sale.php/?sales_id=' +
-                        saleItemId,
-                    data: formData,
-                    config: {
-                        headers: { 'Content-type': 'multipart/form-data' },
-                    },
-                });
-            } catch (error) {
-                alert('Ошибка при запросе данных');
-                console.error(error);
-            }
-        }
-        fetchData();
+        formData.append('sales_id', id);
+
+        await axios({
+            method: 'post',
+            url: `http://localhost:8888/bonus-calculator/sale.php/?sales_id=${id}`,
+            data: formData,
+            config: {
+                headers: { 'Content-type': 'multipart/form-data' },
+            },
+        });
+
+        setSales(sales.filter((sale) => sale.sales_id !== id));
         setModalOpen(false);
+        setChangeArray(true);
     };
     const totalCalculator = (arr, key) => {
         return arr
-            .filter((sale) => sale.returns === '0')
             .reduce(
                 (acc, curentValue) =>
                     Math.round(acc + Number(curentValue[key])),
@@ -136,9 +129,6 @@ function SalesTable({
                         .map((sale) => {
                             return (
                                 <tr
-                                    className={
-                                        sale.returns === '1' ? 'returns' : ''
-                                    }
                                     key={sale.sales_id}
                                     data-id={sale.sales_id}
                                     onClick={onClickSaleItem}

@@ -14,8 +14,7 @@ function Home({
     saleAtOnePercent,
     saleAtThreePercent,
     salesThisYearAndMonth,
-    returnded,
-    setReturned,
+    setChangeArray,
 }) {
     return (
         <main className="main">
@@ -33,6 +32,7 @@ function Home({
                         date={startDate}
                         sales={sales}
                         setSales={setSales}
+                        setChangeArray={setChangeArray}
                     />
                 )}
             </section>
@@ -41,23 +41,21 @@ function Home({
                 {saleAtOnePercent.length > 0 && (
                     <SalesTable
                         sales={sales}
-                        setSales={sales}
+                        setSales={setSales}
                         percent="1"
                         array={saleAtOnePercent}
                         startDate={startDate}
-                        returned={returnded}
-                        setReturned={setReturned}
+                        setChangeArray={setChangeArray}
                     />
                 )}
                 {saleAtThreePercent.length > 0 && (
                     <SalesTable
                         sales={sales}
-                        setSales={sales}
+                        setSales={setSales}
                         percent="3"
                         array={saleAtThreePercent}
                         startDate={startDate}
-                        returned={returnded}
-                        setReturned={setReturned}
+                        setChangeArray={setChangeArray}
                     />
                 )}
                 {salesThisYearAndMonth.length > 0 && (
