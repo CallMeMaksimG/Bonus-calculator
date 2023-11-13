@@ -50,9 +50,9 @@ function AddSaleForm({
             data: formData,
             config: { headers: { 'Content-type': 'multipart/form-data' } },
         })
-            .then(function (response) {
-                console.log(response);
-            })
+            // .then(function (response) {
+            //     console.log(response);
+            // })
             .catch(function (error) {
                 console.error(error);
             });

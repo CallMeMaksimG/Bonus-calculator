@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import './Registration.scss';
 
 function Registraton() {
@@ -68,10 +69,24 @@ function Registraton() {
         }
     };
 
+    const onSubmitHandler = async (event) => {
+        event.preventDefault();
+        let formData = new FormData();
+        formData.append('login', login);
+        formData.append('password', password);
+
+        await axios({
+            method: 'post',
+            url: 'http://localhost:8888/bonus-calculator/reg.php',
+            data: formData,
+            config: { headers: { 'Content-type': 'multipart/form-data' } },
+        });
+    };
+
     return (
         <div className="registration">
             <h3 className="title-3">Регистрация</h3>
-            <form className="registration__form">
+            <form onSubmit={onSubmitHandler} className="registration__form">
                 <label htmlFor="login">Логин</label>
                 {loginDirty && loginError && (
                     <div className="registration__form-error">{loginError}</div>
@@ -119,7 +134,7 @@ function Registraton() {
                     name="confirmPassword"
                     value={confirmPassword}
                 />
-                <button disabled={!formValid} type="submit">
+                <button  disabled={!formValid} type="submit">
                     Зарегистрироваться
                 </button>
             </form>

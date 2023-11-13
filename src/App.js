@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import axios from 'axios';
-import './App.css';
 import Header from './components/Header/Header';
 import Home from './pages/Home/Home';
 import Enter from './pages/Enter/Enter';
 import Registraton from './pages/Registration/Registration';
+import './App.scss';
 
 function App() {
     const [disabledForm, setDisabledForm] = useState(false);
@@ -27,10 +27,8 @@ function App() {
             }
         }
         fetchData();
-        console.log(sales)
     }, [changeArray]);
     
-    // console.log(sales)
     const salesThisYearAndMonth = sales.filter(
         (sale) =>
             Number(sale.year) === startDate.getFullYear() &&

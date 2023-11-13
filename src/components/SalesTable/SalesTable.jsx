@@ -39,8 +39,6 @@ function SalesTable({
 
     const onClickReturnBtn = async (id) => {
         modalItemInfo.forEach((sale) => (id = sale.sales_id));
-        console.log(array);
-        // console.log(saleItemId);
         let formData = new FormData();
         formData.append('sales_id', id);
 
