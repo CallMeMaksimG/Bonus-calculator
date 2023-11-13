@@ -12,6 +12,7 @@ function App() {
     const [sales, setSales] = useState([]);
     const [startDate, setStartDate] = useState(new Date());
     const [changeArray, setChangeArray] = useState([]);
+    const [showInfo, setShowInfo] = useState(false);
     
     useEffect(() => {
         async function fetchData() {
@@ -67,10 +68,10 @@ function App() {
                                 />
                             }
                         ></Route>
-                        <Route path="login" element={<Enter />}></Route>
+                        <Route path="login" element={<Enter showInfo={showInfo} setShowInfo={setShowInfo} />}></Route>
                         <Route
                             path="registration"
-                            element={<Registraton />}
+                            element={<Registraton showInfo={showInfo} setShowInfo={setShowInfo} />}
                         ></Route>
                     </Routes>
                 </div>

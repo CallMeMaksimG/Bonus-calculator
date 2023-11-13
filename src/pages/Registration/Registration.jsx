@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Registration.scss';
 
-function Registraton() {
+function Registraton({ setShowInfo }) {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -19,6 +20,7 @@ function Registraton() {
         'Поле обязательно для заполнения'
     );
     const [formValid, setFormValid] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (loginError || passwordError || confirmPasswordError) {
@@ -81,6 +83,9 @@ function Registraton() {
             data: formData,
             config: { headers: { 'Content-type': 'multipart/form-data' } },
         });
+
+        setShowInfo(true);
+        navigate('/login');
     };
 
     return (
@@ -134,7 +139,7 @@ function Registraton() {
                     name="confirmPassword"
                     value={confirmPassword}
                 />
-                <button  disabled={!formValid} type="submit">
+                <button disabled={!formValid} type="submit">
                     Зарегистрироваться
                 </button>
             </form>

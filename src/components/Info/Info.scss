@@ -1,0 +1,32 @@
+.modal-info {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    width: 300px;
+    height: 150px;
+    padding: 20px 10px;
+    transform: translate(-50%, -70%);
+    background: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 7px;
+    z-index:2;
+}
+
+.modal-info__text {
+    padding-top: 10px;
+    font-weight: 300;
+}
+
+.modal-info__button {
+    background: black;
+    border-radius: 10px;
+    height: 40px;
+    padding: 8.5px 0;
+    width: 130px;
+    font-size: 15px;
+    color: white;
+}
