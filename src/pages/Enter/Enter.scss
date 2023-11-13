@@ -34,7 +34,7 @@
     }
 
     button {
-        background-color: black;
+        background-color: #1b1b1b;
         color: white;
         width: 100%;
         height: 50px;
@@ -61,11 +61,16 @@
 }
 
 .auth__link {
-    display: block;
-    text-decoration: underline !important;
-    font-weight: 300;
-    font-size: 14px;
-    padding-top: 10px;
-    text-align: end;
-    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 1.5px solid #1b1b1b;
+    color: #1b1b1b;
+    width: 100%;
+    height: 50px;
+    font-size: 15px;
+    border-radius: 10px;
+    padding: 8.5px 0;
+    margin-top: 10px;
 }
