@@ -78,14 +78,29 @@ function Registraton({ setShowInfo }) {
         formData.append('password', password);
 
         await axios({
-            method: 'post',
-            url: 'http://localhost:8888/bonus-calculator/reg.php',
+            method: 'get',
+            url:
+                'http://localhost:8888/bonus-calculator/reg.php?login=' + login,
             data: formData,
-            config: { headers: { 'Content-type': 'multipart/form-data' } },
+            // config: { headers: { 'Content-type': 'multipart/form-data' } },
+        }).then((response) => {
+            if (response.data.length === 0) {
+                axios({
+                    method: 'post',
+                    url:
+                        'http://localhost:8888/bonus-calculator/reg.php?login=' +
+                        login,
+                    data: formData,
+                    config: {
+                        headers: { 'Content-type': 'multipart/form-data' },
+                    },
+                });
+                setShowInfo(true);
+                navigate('/login');
+            } else {
+                setLoginError('Пользователь с таким логином уже существует')
+            }
         });
-
-        setShowInfo(true);
-        navigate('/login');
     };
 
     return (
