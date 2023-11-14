@@ -13,7 +13,8 @@ function App() {
     const [startDate, setStartDate] = useState(new Date());
     const [changeArray, setChangeArray] = useState([]);
     const [showInfo, setShowInfo] = useState(false);
-    
+    const [userId, setUserId] = useState('');
+    console.log(userId);
     useEffect(() => {
         async function fetchData() {
             try {
@@ -29,7 +30,7 @@ function App() {
         }
         fetchData();
     }, [changeArray]);
-    
+
     const salesThisYearAndMonth = sales.filter(
         (sale) =>
             Number(sale.year) === startDate.getFullYear() &&
@@ -68,10 +69,24 @@ function App() {
                                 />
                             }
                         ></Route>
-                        <Route path="login" element={<Enter showInfo={showInfo} setShowInfo={setShowInfo} />}></Route>
+                        <Route
+                            path="login"
+                            element={
+                                <Enter
+                                    showInfo={showInfo}
+                                    setShowInfo={setShowInfo}
+                                    setUserId={setUserId}
+                                />
+                            }
+                        ></Route>
                         <Route
                             path="registration"
-                            element={<Registraton showInfo={showInfo} setShowInfo={setShowInfo} />}
+                            element={
+                                <Registraton
+                                    showInfo={showInfo}
+                                    setShowInfo={setShowInfo}
+                                />
+                            }
                         ></Route>
                     </Routes>
                 </div>

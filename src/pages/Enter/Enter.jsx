@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import Info from '../../components/Info/Info';
 import './Enter.scss';
 
-const Enter = ({showInfo, setShowInfo}) => {
+const Enter = ({ showInfo, setShowInfo, setUserId }) => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [loginDirty, setLoginDirty] = useState(false);
     const [passwordDirty, setPasswordDirty] = useState(false);
-    // const [showInfo, setShowInfo] = useState(false);
     const [loginError, setLoginError] = useState(
         'Поле обязательно для заполнения'
     );
@@ -16,7 +17,7 @@ const Enter = ({showInfo, setShowInfo}) => {
         'Поле обязательно для заполнения'
     );
     const [formValid, setFormValid] = useState(false);
-
+    const navigate = useNavigate();
     useEffect(() => {
         if (loginError || passwordError) {
             setFormValid(false);
@@ -53,12 +54,37 @@ const Enter = ({showInfo, setShowInfo}) => {
                 break;
         }
     };
+
+    const onSubmitHandler = async (event) => {
+        event.preventDefault();
+        let formData = new FormData();
+        formData.append('login', login);
+        formData.append('password', password);
+        await axios({
+            method: 'get',
+            url: `http://localhost:8888/bonus-calculator/auth.php?login=${login}&password=${password}`,
+            data: formData,
+        }).then((response) => {
+            if (response.data.length !== 0) {
+                localStorage.setItem('user', 'auth');
+                response.data.forEach((user) => setUserId(user.employee_id));
+                navigate('/');
+            } else {
+                setLoginError('Пользователь не найден');
+            }
+        });
+    };
     return (
         <>
-            {showInfo && <Info text='Регистрация прошла успешно!' setShowInfo={setShowInfo} />}
+            {showInfo && (
+                <Info
+                    text="Регистрация прошла успешно!"
+                    setShowInfo={setShowInfo}
+                />
+            )}
             <div className="auth">
                 <h3 className="title-3">Авторизация</h3>
-                <form className="auth__form">
+                <form onSubmit={onSubmitHandler} className="auth__form">
                     <label htmlFor="login">Логин</label>
                     {loginDirty && loginError && (
                         <div className="login__form-error">{loginError}</div>
