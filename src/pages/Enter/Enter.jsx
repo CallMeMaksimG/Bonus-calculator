@@ -60,20 +60,31 @@ const Enter = ({ showInfo, setShowInfo, setUserId }) => {
         let formData = new FormData();
         formData.append('login', login);
         formData.append('password', password);
-        await axios({
-            method: 'get',
-            url: `http://localhost:8888/bonus-calculator/auth.php?login=${login}&password=${password}`,
-            data: formData,
-        }).then((response) => {
-            if (response.data.length !== 0) {
-                response.data.forEach((user) => localStorage.setItem('user', `${user.employee_id}`));
-                // localStorage.setItem('user', 'auth');
-                response.data.forEach((user) => setUserId(user.employee_id));
-                navigate('/');
-            } else {
-                setLoginError('Пользователь не найден');
+        async function fetchData() {
+            try {
+                await axios({
+                    method: 'get',
+                    url: `http://localhost:8888/bonus-calculator/auth.php?login=${login}&password=${password}`,
+                    data: formData,
+                }).then((response) => {
+                    if (response.data.length !== 0) {
+                        response.data.forEach((user) =>
+                            localStorage.setItem('user', `${user.employee_id}`)
+                        );
+                        response.data.forEach((user) =>
+                            setUserId(user.employee_id)
+                        );
+                        navigate('/');
+                    } else {
+                        setLoginError('Пользователь не найден');
+                    }
+                });
+            } catch (error) {
+                alert('Ошибка при запросе данных');
+                console.error(error);
             }
-        });
+        }
+        fetchData();
     };
     return (
         <>

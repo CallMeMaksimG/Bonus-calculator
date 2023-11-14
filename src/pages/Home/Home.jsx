@@ -15,7 +15,7 @@ function Home({
     saleAtThreePercent,
     salesThisYearAndMonth,
     setChangeArray,
-    userId
+    userId,
 }) {
     return (
         <main className="main">

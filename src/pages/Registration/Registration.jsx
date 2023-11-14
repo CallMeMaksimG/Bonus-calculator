@@ -71,35 +71,48 @@ function Registraton({ setShowInfo }) {
         }
     };
 
-    const onSubmitHandler = async (event) => {
+    const onSubmitHandler = (event) => {
         event.preventDefault();
         let formData = new FormData();
         formData.append('login', login);
         formData.append('password', password);
 
-        await axios({
-            method: 'get',
-            url:
-                'http://localhost:8888/bonus-calculator/reg.php?login=' + login,
-            data: formData,
-        }).then((response) => {
-            if (response.data.length === 0) {
-                axios({
-                    method: 'post',
+        async function fetchData() {
+            try {
+                await axios({
+                    method: 'get',
                     url:
                         'http://localhost:8888/bonus-calculator/reg.php?login=' +
                         login,
                     data: formData,
-                    config: {
-                        headers: { 'Content-type': 'multipart/form-data' },
-                    },
+                }).then((response) => {
+                    if (response.data.length === 0) {
+                        axios({
+                            method: 'post',
+                            url:
+                                'http://localhost:8888/bonus-calculator/reg.php?login=' +
+                                login,
+                            data: formData,
+                            config: {
+                                headers: {
+                                    'Content-type': 'multipart/form-data',
+                                },
+                            },
+                        });
+                        setShowInfo(true);
+                        navigate('/login');
+                    } else {
+                        setLoginError(
+                            'Пользователь с таким логином уже существует'
+                        );
+                    }
                 });
-                setShowInfo(true);
-                navigate('/login');
-            } else {
-                setLoginError('Пользователь с таким логином уже существует');
+            } catch (error) {
+                alert('Ошибка при запросе данных');
+                console.error(error);
             }
-        });
+        }
+        fetchData();
     };
 
     return (

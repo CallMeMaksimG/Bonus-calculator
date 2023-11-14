@@ -9,7 +9,7 @@ function SalesTable({
     setChangeArray,
     sales,
     setSales,
-    userId
+    userId,
 }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalItemInfo, setModalItemInfo] = useState([]);
@@ -38,20 +38,26 @@ function SalesTable({
         setSales([...sales, sales]);
     };
 
-    const onClickReturnBtn = async (id) => {
+    const onClickReturnBtn = (id) => {
         modalItemInfo.forEach((sale) => (id = sale.sales_id));
         let formData = new FormData();
         formData.append('sales_id', id);
-
-        await axios({
-            method: 'post',
-            url: `http://localhost:8888/bonus-calculator/sale.php/?sales_id=${id}`,
-            data: formData,
-            config: {
-                headers: { 'Content-type': 'multipart/form-data' },
-            },
-        });
-
+        async function fetchData() {
+            try {
+                await axios({
+                    method: 'post',
+                    url: `http://localhost:8888/bonus-calculator/sale.php/?sales_id=${id}`,
+                    data: formData,
+                    config: {
+                        headers: { 'Content-type': 'multipart/form-data' },
+                    },
+                });
+            } catch (error) {
+                alert('Ошибка при запросе данных');
+                console.error(error);
+            }
+        }
+        fetchData();
         setSales(sales.filter((sale) => sale.sales_id !== id));
         setModalOpen(false);
         setChangeArray(true);
