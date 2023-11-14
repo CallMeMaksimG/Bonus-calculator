@@ -87,11 +87,12 @@ function SalesTable({
                                 >
                                     <p>{item.title}</p>
                                     <p>
-                                        <span>Цена</span> {item.price} &#8381;
+                                        <span>Цена</span> {item.price}
+                                        &nbsp;&#8381;
                                     </p>
                                     <p>
-                                        <span>К выплате</span> {item.bonus}{' '}
-                                        &#8381;
+                                        <span>К выплате</span> {item.bonus}
+                                        &nbsp;&#8381;
                                     </p>
                                 </div>
                             );
@@ -139,13 +140,13 @@ function SalesTable({
                                     onClick={onClickSaleItem}
                                 >
                                     <td>{sale.title}</td>
-                                    <td>{sale.price} &#8381;</td>
+                                    <td>{sale.price}&nbsp;&#8381;</td>
                                     <td>
                                         {bonusCalculation(
                                             sale.price,
                                             sale.percent
-                                        )}{' '}
-                                        &#8381;
+                                        )}
+                                        &nbsp;&#8381;
                                     </td>
                                 </tr>
                             );
@@ -154,14 +155,8 @@ function SalesTable({
                 <tfoot>
                     <tr>
                         <td>Итого</td>
-                        <td>
-                            {totalCalculator(array, 'price')}
-                            &#8381;
-                        </td>
-                        <td>
-                            {totalCalculator(array, 'bonus')}
-                            &#8381;
-                        </td>
+                        <td>{totalCalculator(array, 'price')}&nbsp;&#8381;</td>
+                        <td>{totalCalculator(array, 'bonus')}&nbsp;&#8381;</td>
                     </tr>
                 </tfoot>
             </table>
