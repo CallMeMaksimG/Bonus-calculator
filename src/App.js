@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from './components/Header/Header';
 import Home from './pages/Home/Home';
@@ -14,18 +15,17 @@ function App() {
     const [changeArray, setChangeArray] = useState([]);
     const [showInfo, setShowInfo] = useState(false);
     const [userId, setUserId] = useState(localStorage.getItem('user'));
-    console.log(userId);
+    const navigate = useNavigate();
     useEffect(() => {
         async function fetchData() {
             try {
                 let formData = new FormData();
                 formData.append('userId', userId);
                 const salesResponse = await axios({
-                  method: 'get',
-                    url:
-                    `http://localhost:8888/bonus-calculator/sales.php?employee_id=${userId}`,
+                    method: 'get',
+                    url: `http://localhost:8888/bonus-calculator/sales.php?employee_id=${userId}`,
                     data: formData,
-                })
+                });
                 console.log(salesResponse);
                 setSales(salesResponse.data);
             } catch (error) {
@@ -35,6 +35,10 @@ function App() {
         }
         fetchData();
     }, [changeArray, userId]);
+
+    useEffect(() => {
+        userId === null ? navigate('/login') : navigate('/');
+    }, [userId]);
 
     const salesThisYearAndMonth = sales.filter(
         (sale) =>
@@ -48,7 +52,7 @@ function App() {
         (sale) => sale.percent === '3'
     );
     return (
-        <BrowserRouter>
+        <>
             <div className="App">
                 <div className="container">
                     <Link to="/">
@@ -97,7 +101,7 @@ function App() {
                     </Routes>
                 </div>
             </div>
-        </BrowserRouter>
+        </>
     );
 }
 
