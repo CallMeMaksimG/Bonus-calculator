@@ -9,6 +9,7 @@ function SalesTable({
     setChangeArray,
     sales,
     setSales,
+    userId
 }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalItemInfo, setModalItemInfo] = useState([]);

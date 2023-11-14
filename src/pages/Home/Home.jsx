@@ -15,6 +15,7 @@ function Home({
     saleAtThreePercent,
     salesThisYearAndMonth,
     setChangeArray,
+    userId
 }) {
     return (
         <main className="main">
@@ -46,6 +47,7 @@ function Home({
                         array={saleAtOnePercent}
                         startDate={startDate}
                         setChangeArray={setChangeArray}
+                        userId={userId}
                     />
                 )}
                 {saleAtThreePercent.length > 0 && (
@@ -56,6 +58,7 @@ function Home({
                         array={saleAtThreePercent}
                         startDate={startDate}
                         setChangeArray={setChangeArray}
+                        userId={userId}
                     />
                 )}
                 {salesThisYearAndMonth.length > 0 && (

@@ -13,14 +13,19 @@ function App() {
     const [startDate, setStartDate] = useState(new Date());
     const [changeArray, setChangeArray] = useState([]);
     const [showInfo, setShowInfo] = useState(false);
-    const [userId, setUserId] = useState('');
+    const [userId, setUserId] = useState(localStorage.getItem('user'));
     console.log(userId);
     useEffect(() => {
         async function fetchData() {
             try {
-                const salesResponse = await axios.get(
-                    'http://localhost:8888/bonus-calculator/sales.php'
-                );
+                let formData = new FormData();
+                formData.append('userId', userId);
+                const salesResponse = await axios({
+                  method: 'get',
+                    url:
+                    `http://localhost:8888/bonus-calculator/sales.php?employee_id=${userId}`,
+                    data: formData,
+                })
                 console.log(salesResponse);
                 setSales(salesResponse.data);
             } catch (error) {
@@ -66,6 +71,7 @@ function App() {
                                         salesThisYearAndMonth
                                     }
                                     setChangeArray={setChangeArray}
+                                    userId={userId}
                                 />
                             }
                         ></Route>

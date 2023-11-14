@@ -66,7 +66,8 @@ const Enter = ({ showInfo, setShowInfo, setUserId }) => {
             data: formData,
         }).then((response) => {
             if (response.data.length !== 0) {
-                localStorage.setItem('user', 'auth');
+                response.data.forEach((user) => localStorage.setItem('user', `${user.employee_id}`));
+                // localStorage.setItem('user', 'auth');
                 response.data.forEach((user) => setUserId(user.employee_id));
                 navigate('/');
             } else {
