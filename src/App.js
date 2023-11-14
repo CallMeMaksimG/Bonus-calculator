@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from './components/Header/Header';
@@ -26,7 +26,6 @@ function App() {
                     url: `http://localhost:8888/bonus-calculator/sales.php?employee_id=${userId}`,
                     data: formData,
                 });
-                console.log(salesResponse);
                 setSales(salesResponse.data);
             } catch (error) {
                 alert('Ошибка при запросе данных');

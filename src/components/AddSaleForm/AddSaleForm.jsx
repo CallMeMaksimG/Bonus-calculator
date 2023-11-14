@@ -72,6 +72,7 @@ function AddSaleForm({
                 placeholder="Введите название товара"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                required
             />
             <label htmlFor="price">Цена:</label>
             <input
@@ -81,6 +82,7 @@ function AddSaleForm({
                 placeholder="Введите цену"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
+                required
             />
             <fieldset>
                 <legend>Процент:</legend>
@@ -93,6 +95,7 @@ function AddSaleForm({
                         value="1"
                         checked={percent == '1' ? true : false}
                         onChange={(e) => setPercent(e.target.value)}
+                        required
                     />{' '}
                     <label
                         htmlFor="one-percent"
