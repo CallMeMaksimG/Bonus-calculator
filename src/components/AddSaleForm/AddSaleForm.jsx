@@ -8,6 +8,7 @@ function AddSaleForm({
     date,
     setDisabledForm,
     setChangeArray,
+    userId
 }) {
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
@@ -37,7 +38,7 @@ function AddSaleForm({
         setPercent('');
 
         let formData = new FormData();
-        formData.append('employee_id', 1);
+        formData.append('employee_id', userId);
         formData.append('title', title);
         formData.append('price', price);
         formData.append('percent', percent);

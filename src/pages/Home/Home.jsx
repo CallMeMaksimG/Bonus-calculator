@@ -34,6 +34,7 @@ function Home({
                         sales={sales}
                         setSales={setSales}
                         setChangeArray={setChangeArray}
+                        userId={userId}
                     />
                 )}
             </section>

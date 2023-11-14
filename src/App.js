@@ -34,7 +34,7 @@ function App() {
             }
         }
         fetchData();
-    }, [changeArray]);
+    }, [changeArray, userId]);
 
     const salesThisYearAndMonth = sales.filter(
         (sale) =>
