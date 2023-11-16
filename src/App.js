@@ -21,12 +21,17 @@ function App() {
             try {
                 let formData = new FormData();
                 formData.append('userId', userId);
-                const salesResponse = await axios({
+                await axios({
                     method: 'get',
-                    url: `http://localhost:8888/bonus-calculator/sales.php?employee_id=${userId}`,
+                    baseURL: 'http://f0883110.xsph.ru',
+                    url: `/sales.php?employee_id=${userId}`,
                     data: formData,
+                }).then((response) => {
+                    console.log(response.data);
+                    if (response.data !== null) {
+                        setSales(response.data);
+                    }
                 });
-                setSales(salesResponse.data);
             } catch (error) {
                 alert('Ошибка при запросе данных');
                 console.error(error);

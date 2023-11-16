@@ -81,24 +81,30 @@ function Registraton({ setShowInfo }) {
             try {
                 await axios({
                     method: 'get',
-                    url:
-                        'http://localhost:8888/bonus-calculator/reg.php?login=' +
-                        login,
+                    baseURL: 'http://f0883110.xsph.ru',
+                    // url: '/reg.php',
+                    url: '/reg.php?login=' + login,
                     data: formData,
                 }).then((response) => {
-                    if (response.data.length === 0) {
-                        axios({
-                            method: 'post',
-                            url:
-                                'http://localhost:8888/bonus-calculator/reg.php?login=' +
-                                login,
-                            data: formData,
-                            config: {
-                                headers: {
-                                    'Content-type': 'multipart/form-data',
+                    // console.log(response.data);
+                    if (response.data === null) {
+                        try {
+                            axios({
+                                method: 'post',
+                                baseURL: 'http://f0883110.xsph.ru',
+                                url: '/reg.php?login=' + login,
+                                data: formData,
+                                config: {
+                                    headers: {
+                                        'Content-type': 'multipart/form-data',
+                                    },
                                 },
-                            },
-                        });
+                            });
+                        } catch (error) {
+                            alert('Ошибка при запросе данных');
+                            console.error(error);
+                        }
+
                         setShowInfo(true);
                         navigate('/login');
                     } else {
@@ -107,10 +113,7 @@ function Registraton({ setShowInfo }) {
                         );
                     }
                 });
-            } catch (error) {
-                alert('Ошибка при запросе данных');
-                console.error(error);
-            }
+            } catch (error) {}
         }
         fetchData();
     };

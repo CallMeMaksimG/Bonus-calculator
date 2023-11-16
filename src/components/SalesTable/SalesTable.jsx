@@ -24,6 +24,7 @@ function SalesTable({
             try {
                 axios({
                     method: 'get',
+                    
                     url:
                         'http://localhost:8888/bonus-calculator/sale.php/?sales_id=' +
                         saleItemId,

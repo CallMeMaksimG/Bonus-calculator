@@ -55,25 +55,27 @@ const Enter = ({ showInfo, setShowInfo, setUserId }) => {
         }
     };
 
-    const onSubmitHandler = async (event) => {
+    const onSubmitHandler = (event) => {
         event.preventDefault();
         let formData = new FormData();
         formData.append('login', login);
         formData.append('password', password);
+
         async function fetchData() {
             try {
                 await axios({
                     method: 'get',
-                    url: `http://localhost:8888/bonus-calculator/auth.php?login=${login}&password=${password}`,
+                    baseURL: 'http://f0883110.xsph.ru',
+                    url: '/auth.php?login=' + login + '&password=' + password,
                     data: formData,
                 }).then((response) => {
-                    if (response.data.length !== 0) {
-                        response.data.forEach((user) =>
-                            localStorage.setItem('user', `${user.employee_id}`)
+                    // console.log(response.data.employee_id);
+                    if (response.data !== null) {
+                        localStorage.setItem(
+                            'user',
+                            `${response.data.employee_id}`
                         );
-                        response.data.forEach((user) =>
-                            setUserId(user.employee_id)
-                        );
+                        setUserId(response.data.employee_id);
                         navigate('/');
                     } else {
                         setLoginError('Пользователь не найден');
