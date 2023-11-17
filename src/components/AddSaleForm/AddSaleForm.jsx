@@ -50,7 +50,8 @@ function AddSaleForm({
             try {
                 await axios({
                     method: 'post',
-                    url: 'http://localhost:8888/bonus-calculator/sales.php',
+                    baseURL: 'http://f0883110.xsph.ru',
+                    url: '/sales.php',
                     data: formData,
                     config: {
                         headers: { 'Content-type': 'multipart/form-data' },

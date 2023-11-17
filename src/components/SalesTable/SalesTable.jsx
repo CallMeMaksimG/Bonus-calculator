@@ -24,10 +24,8 @@ function SalesTable({
             try {
                 axios({
                     method: 'get',
-                    
-                    url:
-                        'http://localhost:8888/bonus-calculator/sale.php/?sales_id=' +
-                        saleItemId,
+                    baseURL: 'http://f0883110.xsph.ru',
+                    url: '/sale.php/?sales_id=' + saleItemId,
                     data: formData,
                 }).then((result) => setModalItemInfo(result.data));
             } catch (error) {
@@ -47,7 +45,8 @@ function SalesTable({
             try {
                 await axios({
                     method: 'post',
-                    url: `http://localhost:8888/bonus-calculator/sale.php/?sales_id=${id}`,
+                    baseURL: 'http://f0883110.xsph.ru',
+                    url: `/sale.php/?sales_id=${id}`,
                     data: formData,
                     config: {
                         headers: { 'Content-type': 'multipart/form-data' },
