@@ -27,7 +27,10 @@ function SalesTable({
                     baseURL: 'http://f0883110.xsph.ru',
                     url: '/sale.php/?sales_id=' + saleItemId,
                     data: formData,
-                }).then((result) => setModalItemInfo(result.data));
+                }).then((result) => {
+                    console.log(result);
+                    setModalItemInfo(result.data);
+                });
             } catch (error) {
                 alert('Ошибка при запросе данных');
                 console.error(error);
@@ -38,7 +41,7 @@ function SalesTable({
     };
 
     const onClickReturnBtn = (id) => {
-        modalItemInfo.forEach((sale) => (id = sale.sales_id));
+        id = modalItemInfo.sales_id;
         let formData = new FormData();
         formData.append('sales_id', id);
         async function fetchData() {
@@ -79,24 +82,22 @@ function SalesTable({
                 <>
                     <div className="overlay"></div>
                     <div className="modal-sale">
-                        {modalItemInfo.map((item) => {
-                            return (
                                 <div
-                                    key={item.sales_id}
+                                    key={modalItemInfo.sales_id}
                                     className="modal-sale__item-info"
                                 >
-                                    <p>{item.title}</p>
+                                    <p>{modalItemInfo.title}</p>
                                     <p>
-                                        <span>Цена</span> {item.price}
+                                        <span>Цена</span> {modalItemInfo.price}
                                         &nbsp;&#8381;
                                     </p>
                                     <p>
-                                        <span>К выплате</span> {item.bonus}
+                                        <span>К выплате</span> {modalItemInfo.bonus}
                                         &nbsp;&#8381;
                                     </p>
                                 </div>
-                            );
-                        })}
+                            
+                       
 
                         <div className="modal-sale__buttons">
                             <button
