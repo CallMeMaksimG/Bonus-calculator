@@ -32,7 +32,6 @@ function AddSaleForm({
     };
     const onSubmitHandler = async (event) => {
         event.preventDefault();
-        addSalesHandler(title, price, percent);
         setTitle('');
         setPrice('');
         setPercent('');
@@ -57,6 +56,7 @@ function AddSaleForm({
                         headers: { 'Content-type': 'multipart/form-data' },
                     },
                 });
+                addSalesHandler(title, price, percent);
             } catch (error) {
                 console.error(error);
             }
