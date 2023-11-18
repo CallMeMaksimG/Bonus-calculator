@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Header from './components/Header/Header';
+import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home/Home';
 import Enter from './pages/Enter/Enter';
 import Registraton from './pages/Registration/Registration';
@@ -59,12 +59,10 @@ function App() {
         <>
             <div className="App">
                 <div className="container">
-                    <Link to="/">
-                        <Header />
-                    </Link>
                     <Routes>
+                    <Route path="/" element={<MainLayout />}>
                         <Route
-                            path="/"
+                            index
                             element={
                                 <Home
                                     startDate={startDate}
@@ -102,6 +100,7 @@ function App() {
                                 />
                             }
                         ></Route>
+                    </Route>
                     </Routes>
                 </div>
             </div>
