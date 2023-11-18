@@ -1,9 +1,13 @@
 import './Header.scss';
 
-function Header() {
+function Header({ isLoaded }) {
     return (
-        <header className="header">
-            <img src="../img/logo.svg"></img>
+        <header className={isLoaded ? 'header' : 'header header--loaded'}>
+            <img
+                className="header__logo"
+                src="../img/logo.svg"
+                alt="LOGO"
+            ></img>
         </header>
     );
 }

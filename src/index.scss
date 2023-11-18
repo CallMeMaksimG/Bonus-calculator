@@ -12,7 +12,7 @@ html {
     padding: 20px;
     margin: 0 auto;
 
-    @media(max-width: 800px) {
+    @media (max-width: 800px) {
         padding: 20px 10px;
     }
 }
@@ -23,4 +23,8 @@ html {
     padding-bottom: 30px;
 }
 
-
+main {
+    @media (max-width: 800px) {
+        margin-top: 70px !important;
+    }
+}

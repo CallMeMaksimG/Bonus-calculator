@@ -69,7 +69,6 @@ const Enter = ({ showInfo, setShowInfo, setUserId }) => {
                     url: '/auth.php?login=' + login + '&password=' + password,
                     data: formData,
                 }).then((response) => {
-                    // console.log(response.data.employee_id);
                     if (response.data !== null) {
                         localStorage.setItem(
                             'user',
@@ -96,7 +95,7 @@ const Enter = ({ showInfo, setShowInfo, setUserId }) => {
                     setShowInfo={setShowInfo}
                 />
             )}
-            <div className="auth">
+            <main className="auth">
                 <h3 className="title-3">Авторизация</h3>
                 <form onSubmit={onSubmitHandler} className="auth__form">
                     <label htmlFor="login">Логин</label>
@@ -134,7 +133,7 @@ const Enter = ({ showInfo, setShowInfo, setUserId }) => {
                 <Link to="../registration" className="auth__link">
                     Регистрация
                 </Link>
-            </div>
+            </main>
         </>
     );
 };

@@ -82,11 +82,9 @@ function Registraton({ setShowInfo }) {
                 await axios({
                     method: 'get',
                     baseURL: 'http://f0883110.xsph.ru',
-                    // url: '/reg.php',
                     url: '/reg.php?login=' + login,
                     data: formData,
                 }).then((response) => {
-                    // console.log(response.data);
                     if (response.data === null) {
                         try {
                             axios({
@@ -119,7 +117,7 @@ function Registraton({ setShowInfo }) {
     };
 
     return (
-        <div className="registration">
+        <main className="registration">
             <h3 className="title-3">Регистрация</h3>
             <form onSubmit={onSubmitHandler} className="registration__form">
                 <label htmlFor="login">Логин</label>
@@ -173,7 +171,7 @@ function Registraton({ setShowInfo }) {
                     Зарегистрироваться
                 </button>
             </form>
-        </div>
+        </main>
     );
 }
 
