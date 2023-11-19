@@ -1,9 +1,9 @@
 .add-sale__form {
-    padding-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     max-height: 300px;
+    margin-bottom: 40px;
 
     fieldset {
         display: flex;
@@ -12,6 +12,10 @@
     }
     legend {
         padding-bottom: 10px;
+    }
+
+    @media(max-width: 800px){
+        margin-bottom: 20px;
     }
 }
 

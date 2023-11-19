@@ -1,16 +1,15 @@
 .sales__table {
-    margin-top: 40px;
     width: 100%;
     border-collapse: collapse;
     font-weight: 300;
 
     caption {
-        margin-bottom: 20px;
+        padding-bottom: 20px;
         font-size: 20px;
         font-weight: 500;
 
         @media (max-width: 800px) {
-            margin-bottom: 10px;
+            padding-bottom: 10px;
             font-size: 18px;
         }
     }
