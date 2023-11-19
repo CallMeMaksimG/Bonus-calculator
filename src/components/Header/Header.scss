@@ -11,8 +11,11 @@
 }
 
 .header__logo {
+    width: 120px;
+    height: 70px;
     @media (max-width: 800px) {
         height: 70px;
+        width: 120px;
         position: absolute;
     }
 
