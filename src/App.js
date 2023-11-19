@@ -27,7 +27,6 @@ function App() {
                     url: `/sales.php?employee_id=${userId}`,
                     data: formData,
                 }).then((response) => {
-                    console.log(response.data);
                     if (response.data !== null) {
                         setSales(response.data);
                     }

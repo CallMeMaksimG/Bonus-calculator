@@ -14,8 +14,8 @@ const MainLayout = () => {
 
     return (
         <>
-            <Link to="/">
-                <Header isLoaded={isLoaded}/>
+            <Link to="/" aria-label="Переход на главную страницу">
+                <Header isLoaded={isLoaded} />
             </Link>
             {isLoaded && <Outlet />}
         </>
