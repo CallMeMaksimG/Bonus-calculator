@@ -16,56 +16,51 @@ function SalesTable({
     const [isLoading, setIsLoading] = useState(false);
     const onClickSaleItem = async (e) => {
         try {
-            
-        setModalOpen(true);
-        setIsLoading(true);
-        const saleItem = e.target.parentNode;
-        const saleItemId = saleItem.dataset.id;
-        let formData = new FormData();
-        formData.append('sales_id', saleItemId);
-        // async function fetchData() {
-            // try {
-               await axios({
-                    method: 'get',
-                    baseURL: 'http://f0883110.xsph.ru',
-                    url: '/sale.php/?sales_id=' + saleItemId,
-                    data: formData,
-                }).then((result) => {
-                    console.log(result);
-                    setModalItemInfo(result.data);
-                });
-            } catch (error) {
-                alert('Ошибка при запросе данных');
-                console.error(error);
-            }
-        // }
-        // fetchData();
+            setModalOpen(true);
+            setIsLoading(true);
+            const saleItem = e.target.parentNode;
+            const saleItemId = saleItem.dataset.id;
+            let formData = new FormData();
+            formData.append('sales_id', saleItemId);
+
+            await axios({
+                method: 'get',
+                baseURL: 'http://f0883110.xsph.ru',
+                url: '/sale.php/?sales_id=' + saleItemId,
+                data: formData,
+            }).then((result) => {
+                setModalItemInfo(result.data);
+            });
+        } catch (error) {
+            alert('Ошибка при запросе данных');
+            console.error(error);
+        }
         setIsLoading(false);
         setSales([...sales, sales]);
     };
 
-    const onClickReturnBtn = (id) => {
-        id = modalItemInfo.sales_id;
-        let formData = new FormData();
-        formData.append('sales_id', id);
-        async function fetchData() {
-            try {
-                await axios({
-                    method: 'post',
-                    baseURL: 'http://f0883110.xsph.ru',
-                    url: `/sale.php/?sales_id=${id}`,
-                    data: formData,
-                    config: {
-                        headers: { 'Content-type': 'multipart/form-data' },
-                    },
-                });
-            } catch (error) {
-                alert('Ошибка при запросе данных');
-                console.error(error);
-            }
+    const onClickReturnBtn = async (id) => {
+        try {
+            setIsLoading(true);
+            id = modalItemInfo.sales_id;
+            let formData = new FormData();
+            formData.append('sales_id', id);
+
+            await axios({
+                method: 'post',
+                baseURL: 'http://f0883110.xsph.ru',
+                url: `/sale.php/?sales_id=${id}`,
+                data: formData,
+                config: {
+                    headers: { 'Content-type': 'multipart/form-data' },
+                },
+            });
+        } catch (error) {
+            alert('Ошибка при запросе данных');
+            console.error(error);
         }
-        fetchData();
         setSales(sales.filter((sale) => sale.sales_id !== id));
+        setIsLoading(false);
         setModalOpen(false);
         setChangeArray(true);
     };
@@ -87,20 +82,20 @@ function SalesTable({
                     <div className="overlay"></div>
                     <div className="modal-sale">
                         {isLoading && <Preloader />}
-                                <div
-                                    key={modalItemInfo.sales_id}
-                                    className="modal-sale__item-info"
-                                >
-                                    <p>{modalItemInfo.title}</p>
-                                    <p>
-                                        <span>Цена</span> {modalItemInfo.price}
-                                        &nbsp;&#8381;
-                                    </p>
-                                    <p>
-                                        <span>К выплате</span> {modalItemInfo.bonus}
-                                        &nbsp;&#8381;
-                                    </p>
-                                </div>
+                        <div
+                            key={modalItemInfo.sales_id}
+                            className="modal-sale__item-info"
+                        >
+                            <p>{modalItemInfo.title}</p>
+                            <p>
+                                <span>Цена</span> {modalItemInfo.price}
+                                &nbsp;&#8381;
+                            </p>
+                            <p>
+                                <span>К выплате</span> {modalItemInfo.bonus}
+                                &nbsp;&#8381;
+                            </p>
+                        </div>
                         <div className="modal-sale__buttons">
                             <button
                                 onClick={() => setModalOpen(false)}
