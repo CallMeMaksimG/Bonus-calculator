@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import Preloader from '../Preloader/Preloader';
 import './SalesTable.scss';
 
 function SalesTable({
@@ -9,20 +10,22 @@ function SalesTable({
     setChangeArray,
     sales,
     setSales,
-    userId,
 }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalItemInfo, setModalItemInfo] = useState([]);
-    const onClickSaleItem = (e) => {
+    const [isLoading, setIsLoading] = useState(false);
+    const onClickSaleItem = async (e) => {
+        try {
+            
         setModalOpen(true);
+        setIsLoading(true);
         const saleItem = e.target.parentNode;
         const saleItemId = saleItem.dataset.id;
-
         let formData = new FormData();
         formData.append('sales_id', saleItemId);
-        async function fetchData() {
-            try {
-                axios({
+        // async function fetchData() {
+            // try {
+               await axios({
                     method: 'get',
                     baseURL: 'http://f0883110.xsph.ru',
                     url: '/sale.php/?sales_id=' + saleItemId,
@@ -35,8 +38,9 @@ function SalesTable({
                 alert('Ошибка при запросе данных');
                 console.error(error);
             }
-        }
-        fetchData();
+        // }
+        // fetchData();
+        setIsLoading(false);
         setSales([...sales, sales]);
     };
 
@@ -82,6 +86,7 @@ function SalesTable({
                 <>
                     <div className="overlay"></div>
                     <div className="modal-sale">
+                        {isLoading && <Preloader />}
                                 <div
                                     key={modalItemInfo.sales_id}
                                     className="modal-sale__item-info"
@@ -96,9 +101,6 @@ function SalesTable({
                                         &nbsp;&#8381;
                                     </p>
                                 </div>
-                            
-                       
-
                         <div className="modal-sale__buttons">
                             <button
                                 onClick={() => setModalOpen(false)}

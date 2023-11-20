@@ -6,6 +6,7 @@ import Header from '../components/Header/Header';
 
 const MainLayout = () => {
     const [isLoaded, setIsLoaded] = useState(false);
+
     const loadApp = () => {
         setIsLoaded(true);
     };
