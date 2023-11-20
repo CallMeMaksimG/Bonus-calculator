@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Preloader from '../../components/Preloader/Preloader';
 import './Registration.scss';
 
-function Registraton({ setShowInfo }) {
+function Registraton({ setShowInfo, isLoading, setIsLoading }) {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -71,53 +72,55 @@ function Registraton({ setShowInfo }) {
         }
     };
 
-    const onSubmitHandler = (event) => {
-        event.preventDefault();
-        let formData = new FormData();
-        formData.append('login', login);
-        formData.append('password', password);
+    const onSubmitHandler = async (event) => {
+        try {
+            event.preventDefault();
+            setIsLoading(true);
+            let formData = new FormData();
+            formData.append('login', login);
+            formData.append('password', password);
 
-        async function fetchData() {
-            try {
-                await axios({
-                    method: 'get',
-                    baseURL: 'http://f0883110.xsph.ru',
-                    url: '/reg.php?login=' + login,
-                    data: formData,
-                }).then((response) => {
-                    if (response.data === null) {
-                        try {
-                            axios({
-                                method: 'post',
-                                baseURL: 'http://f0883110.xsph.ru',
-                                url: '/reg.php?login=' + login,
-                                data: formData,
-                                config: {
-                                    headers: {
-                                        'Content-type': 'multipart/form-data',
-                                    },
+            await axios({
+                method: 'get',
+                baseURL: 'http://f0883110.xsph.ru',
+                url: '/reg.php?login=' + login,
+                data: formData,
+            }).then((response) => {
+                if (response.data === null) {
+                    try {
+                        axios({
+                            method: 'post',
+                            baseURL: 'http://f0883110.xsph.ru',
+                            url: '/reg.php?login=' + login,
+                            data: formData,
+                            config: {
+                                headers: {
+                                    'Content-type': 'multipart/form-data',
                                 },
-                            });
-                        } catch (error) {
-                            alert('Ошибка при запросе данных');
-                            console.error(error);
-                        }
-
-                        setShowInfo(true);
-                        navigate('/login');
-                    } else {
-                        setLoginError(
-                            'Пользователь с таким логином уже существует'
-                        );
+                            },
+                        });
+                    } catch (error) {
+                        alert('Ошибка при запросе данных');
+                        console.error(error);
                     }
-                });
-            } catch (error) {}
+
+                    setShowInfo(true);
+                    navigate('/login');
+                } else {
+                    setLoginError(
+                        'Пользователь с таким логином уже существует'
+                    );
+                }
+            });
+        } catch (error) {
+            console.error(error);
         }
-        fetchData();
+        setIsLoading(false);
     };
 
     return (
         <main className="registration">
+            {isLoading && <Preloader />}
             <h3 className="title-3">Регистрация</h3>
             <form onSubmit={onSubmitHandler} className="registration__form">
                 <label htmlFor="login">Логин</label>

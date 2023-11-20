@@ -90,6 +90,8 @@ function App() {
                                         showInfo={showInfo}
                                         setShowInfo={setShowInfo}
                                         setUserId={setUserId}
+                                        isLoading={isLoading}
+                                        setIsLoading={setIsLoading}
                                     />
                                 }
                             ></Route>
@@ -99,6 +101,8 @@ function App() {
                                     <Registraton
                                         showInfo={showInfo}
                                         setShowInfo={setShowInfo}
+                                        isLoading={isLoading}
+                                        setIsLoading={setIsLoading}
                                     />
                                 }
                             ></Route>
