@@ -16,6 +16,8 @@ function Home({
     salesThisYearAndMonth,
     setChangeArray,
     userId,
+    isLoading,
+    setIsLoading,
 }) {
     return (
         <main className="main">
@@ -35,6 +37,8 @@ function Home({
                         setSales={setSales}
                         setChangeArray={setChangeArray}
                         userId={userId}
+                        isLoading={isLoading}
+                        setIsLoading={setIsLoading}
                     />
                 )}
             </section>
@@ -49,6 +53,8 @@ function Home({
                         startDate={startDate}
                         setChangeArray={setChangeArray}
                         userId={userId}
+                        isLoading={isLoading}
+                        setIsLoading={setIsLoading}
                     />
                 )}
                 {saleAtThreePercent.length > 0 && (
@@ -60,6 +66,8 @@ function Home({
                         startDate={startDate}
                         setChangeArray={setChangeArray}
                         userId={userId}
+                        isLoading={isLoading}
+                        setIsLoading={setIsLoading}
                     />
                 )}
                 {salesThisYearAndMonth.length > 0 && (

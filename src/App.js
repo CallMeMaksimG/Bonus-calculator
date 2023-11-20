@@ -15,6 +15,7 @@ function App() {
     const [changeArray, setChangeArray] = useState([]);
     const [showInfo, setShowInfo] = useState(false);
     const [userId, setUserId] = useState(localStorage.getItem('user'));
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
         async function fetchData() {
@@ -77,6 +78,8 @@ function App() {
                                         }
                                         setChangeArray={setChangeArray}
                                         userId={userId}
+                                        isLoading={isLoading}
+                                        setIsLoading={setIsLoading}
                                     />
                                 }
                             ></Route>

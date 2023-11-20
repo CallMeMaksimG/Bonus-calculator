@@ -10,10 +10,12 @@ function SalesTable({
     setChangeArray,
     sales,
     setSales,
+    isLoading,
+    setIsLoading
 }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalItemInfo, setModalItemInfo] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    
     const onClickSaleItem = async (e) => {
         try {
             setModalOpen(true);

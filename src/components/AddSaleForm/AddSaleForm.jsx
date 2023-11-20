@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import './AddSaleForm.scss';
+import Preloader from '../Preloader/Preloader';
 
 function AddSaleForm({
     sales,
@@ -9,6 +10,8 @@ function AddSaleForm({
     setDisabledForm,
     setChangeArray,
     userId,
+    isLoading,
+    setIsLoading,
 }) {
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
@@ -31,40 +34,40 @@ function AddSaleForm({
         setDisabledForm(false);
     };
     const onSubmitHandler = async (event) => {
-        event.preventDefault();
-        setTitle('');
-        setPrice('');
-        setPercent('');
+        try {
+            event.preventDefault();
+            setIsLoading(true);
+            setTitle('');
+            setPrice('');
+            setPercent('');
 
-        let formData = new FormData();
-        formData.append('employee_id', userId);
-        formData.append('title', title);
-        formData.append('price', price);
-        formData.append('percent', percent);
-        formData.append('bonus', interestCalculation(price, percent));
-        formData.append('month', date.getMonth());
-        formData.append('year', date.getFullYear());
+            let formData = new FormData();
+            formData.append('employee_id', userId);
+            formData.append('title', title);
+            formData.append('price', price);
+            formData.append('percent', percent);
+            formData.append('bonus', interestCalculation(price, percent));
+            formData.append('month', date.getMonth());
+            formData.append('year', date.getFullYear());
 
-        async function fetchData() {
-            try {
-                await axios({
-                    method: 'post',
-                    baseURL: 'http://f0883110.xsph.ru',
-                    url: '/sales.php',
-                    data: formData,
-                    config: {
-                        headers: { 'Content-type': 'multipart/form-data' },
-                    },
-                });
-                addSalesHandler(title, price, percent);
-            } catch (error) {
-                console.error(error);
-            }
+            await axios({
+                method: 'post',
+                baseURL: 'http://f0883110.xsph.ru',
+                url: '/sales.php',
+                data: formData,
+                config: {
+                    headers: { 'Content-type': 'multipart/form-data' },
+                },
+            });
+            addSalesHandler(title, price, percent);
+        } catch (error) {
+            console.error(error);
         }
-        fetchData();
+        setIsLoading(false);
     };
     return (
         <div className="add-sale__form-wrapper">
+            {isLoading && <Preloader />}
             <form onSubmit={onSubmitHandler} className="add-sale__form">
                 <label htmlFor="item">Наименование: </label>
                 <input
