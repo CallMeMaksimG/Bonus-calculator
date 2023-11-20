@@ -3,9 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Info from '../../components/Info/Info';
+import Preloader from '../../components/Preloader/Preloader';
 import './Enter.scss';
 
-const Enter = ({ showInfo, setShowInfo, setUserId }) => {
+const Enter = ({
+    showInfo,
+    setShowInfo,
+    setUserId,
+    isLoading,
+    setIsLoading,
+}) => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [loginDirty, setLoginDirty] = useState(false);
@@ -55,37 +62,36 @@ const Enter = ({ showInfo, setShowInfo, setUserId }) => {
         }
     };
 
-    const onSubmitHandler = (event) => {
-        event.preventDefault();
-        let formData = new FormData();
-        formData.append('login', login);
-        formData.append('password', password);
+    const onSubmitHandler = async (event) => {
+        try {
+            event.preventDefault();
+            setIsLoading(true);
+            let formData = new FormData();
+            formData.append('login', login);
+            formData.append('password', password);
 
-        async function fetchData() {
-            try {
-                await axios({
-                    method: 'get',
-                    baseURL: 'http://f0883110.xsph.ru',
-                    url: '/auth.php?login=' + login + '&password=' + password,
-                    data: formData,
-                }).then((response) => {
-                    if (response.data !== null) {
-                        localStorage.setItem(
-                            'user',
-                            `${response.data.employee_id}`
-                        );
-                        setUserId(response.data.employee_id);
-                        navigate('/');
-                    } else {
-                        setLoginError('Пользователь не найден');
-                    }
-                });
-            } catch (error) {
-                alert('Ошибка при запросе данных');
-                console.error(error);
-            }
+            await axios({
+                method: 'get',
+                baseURL: 'http://f0883110.xsph.ru',
+                url: '/auth.php?login=' + login + '&password=' + password,
+                data: formData,
+            }).then((response) => {
+                if (response.data !== null) {
+                    localStorage.setItem(
+                        'user',
+                        `${response.data.employee_id}`
+                    );
+                    setUserId(response.data.employee_id);
+                    navigate('/');
+                } else {
+                    setLoginError('Пользователь не найден');
+                }
+            });
+        } catch (error) {
+            alert('Ошибка при запросе данных');
+            console.error(error);
         }
-        fetchData();
+        setIsLoading(false);
     };
     return (
         <>
@@ -96,6 +102,7 @@ const Enter = ({ showInfo, setShowInfo, setUserId }) => {
                 />
             )}
             <main className="auth">
+                {isLoading && <Preloader />}
                 <h3 className="title-3">Авторизация</h3>
                 <form onSubmit={onSubmitHandler} className="auth__form">
                     <label htmlFor="login">Логин</label>
