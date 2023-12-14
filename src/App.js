@@ -10,6 +10,7 @@ import './App.scss';
 
 function App() {
     const [disabledForm, setDisabledForm] = useState(false);
+   
     const [sales, setSales] = useState([]);
     const [startDate, setStartDate] = useState(new Date());
     const [changeArray, setChangeArray] = useState([]);

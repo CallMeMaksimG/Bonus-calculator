@@ -3,7 +3,7 @@
     margin: 0 auto;
 }
 
-.add-sale-btn {
+.add-btn {
     display: block;
     border: 1.5px solid #f94f0d;
     height: 40px;
@@ -18,3 +18,8 @@
         font-size: 16px;
     }
 }
+
+.add-income-btn, .add-sale-btn {
+    border: 1.5px solid #1b1b1b;
+}
+
