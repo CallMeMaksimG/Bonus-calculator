@@ -51,7 +51,7 @@ function Home({
                 )}
                     <button onClick={() => setDisabledFormAdditionalIncome(!disabledFormAdditionalIncome)} className="add-income-btn add-btn">Доп. доход</button>
                     {disabledFormAdditionalIncome && 
-                        <AddAdditionalIncomeForm />
+                        <AddAdditionalIncomeForm date={startDate} userId={userId} />
                     }
                 </div>)}
                 

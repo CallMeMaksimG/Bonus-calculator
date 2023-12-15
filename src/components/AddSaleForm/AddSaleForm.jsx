@@ -19,9 +19,9 @@ function AddSaleForm({
     const interestCalculation = (price, percent) =>
         Math.round((Number(price) / 100) * Number(percent));
 
-    const addSalesHandler = (title, price, percent) => {
+    const addSalesHandler = (userId, title, price, percent) => {
         const newSale = {
-            employee_id: 1,
+            employee_id: userId,
             title,
             price,
             percent,
