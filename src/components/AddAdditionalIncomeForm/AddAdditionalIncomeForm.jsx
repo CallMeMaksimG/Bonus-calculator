@@ -2,19 +2,29 @@ import { useState } from 'react';
 import Preloader from '../Preloader/Preloader';
 import './AddAdditionalIncomeForm.scss';
 
-function AddAdditionalIncomeForm({ isLoading, date, setIsLoading, userId }) {
+function AddAdditionalIncomeForm({
+    isLoading,
+    date,
+    setIsLoading,
+    userId,
+    additionalIncome,
+    setAdditionalIncome,
+}) {
     const [source, setSource] = useState('');
     const [sumIncome, setSumIncome] = useState('');
 
-    const addAdditionalIncomeHandler =  (userId, source, sumIncome) => {
+    const addAdditionalIncomeHandler = (event) => {
+        event.preventDefault();
         const newAdditionalIncome = {
             employee_id: userId,
             source: source,
             sumIncome: sumIncome,
             month: date.getMonth(),
             year: date.getFullYear(),
-        }
-    }
+        };
+        setAdditionalIncome([...additionalIncome, newAdditionalIncome]);
+        
+    };
     return (
         <div className="add-sale__form-wrapper form-wrapper">
             {isLoading && <Preloader />}

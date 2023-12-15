@@ -11,7 +11,8 @@ function SalesTable({
     sales,
     setSales,
     isLoading,
-    setIsLoading
+    setIsLoading,
+    totalCalculator
 }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalItemInfo, setModalItemInfo] = useState([]);
@@ -66,15 +67,15 @@ function SalesTable({
         setModalOpen(false);
         setChangeArray(true);
     };
-    const totalCalculator = (arr, key) => {
-        return arr
-            .reduce(
-                (acc, curentValue) =>
-                    Math.round(acc + Number(curentValue[key])),
-                0
-            )
-            .toLocaleString();
-    };
+    // const totalCalculator = (arr, key) => {
+    //     return arr
+    //         .reduce(
+    //             (acc, curentValue) =>
+    //                 Math.round(acc + Number(curentValue[key])),
+    //             0
+    //         )
+    //         .toLocaleString();
+    // };
     const bonusCalculation = (price, percent) =>
         Math.round((Number(price) / 100) * Number(percent));
     return (

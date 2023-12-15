@@ -12,6 +12,8 @@ function App() {
     const [disabledForm, setDisabledForm] = useState(false);
    
     const [sales, setSales] = useState([]);
+    const [additionalIncome, setAdditionalIncome] = useState([]);
+    // console.log(additionalIncome)
     const [startDate, setStartDate] = useState(new Date());
     const [changeArray, setChangeArray] = useState([]);
     const [showInfo, setShowInfo] = useState(false);
@@ -81,6 +83,8 @@ function App() {
                                         userId={userId}
                                         isLoading={isLoading}
                                         setIsLoading={setIsLoading}
+                                        additionalIncome={additionalIncome}
+                                        setAdditionalIncome={setAdditionalIncome}
                                     />
                                 }
                             ></Route>
