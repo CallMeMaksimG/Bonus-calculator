@@ -42,6 +42,29 @@ function App() {
     }, [changeArray, userId]);
 
     useEffect(() => {
+        async function fetchData() {
+            try {
+                let formData = new FormData();
+                formData.append('userId', userId);
+                await axios({
+                    method: 'get',
+                    baseURL: 'http://f0883110.xsph.ru',
+                    url: `/additionalIncomes.php?employee_id=${userId}`,
+                    data: formData,
+                }).then((response) => {
+                    if (response.data !== null) {
+                        setAdditionalIncome(response.data);
+                    }
+                });
+            } catch (error) {
+                alert('Ошибка при запросе данных');
+                console.error(error);
+            }
+        }
+        fetchData();
+    }, [changeArray, userId]);
+
+    useEffect(() => {
         userId === null ? navigate('/login') : navigate('/');
     }, [userId]);
 
@@ -55,6 +78,12 @@ function App() {
     );
     const saleAtThreePercent = salesThisYearAndMonth.filter(
         (sale) => sale.percent === '3'
+    );
+
+    const additionalIncomeThisYearAndMonth = additionalIncome.filter(
+        (additionalIncome) =>
+            Number(additionalIncome.year) === startDate.getFullYear() &&
+            Number(additionalIncome.month) === startDate.getMonth()
     );
     return (
         <>
@@ -82,7 +111,10 @@ function App() {
                                         isLoading={isLoading}
                                         setIsLoading={setIsLoading}
                                         additionalIncome={additionalIncome}
-                                        setAdditionalIncome={setAdditionalIncome}
+                                        setAdditionalIncome={
+                                            setAdditionalIncome
+                                        }
+                                        additionalIncomeThisYearAndMonth={additionalIncomeThisYearAndMonth}
                                     />
                                 }
                             ></Route>

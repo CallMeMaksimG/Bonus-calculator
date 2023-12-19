@@ -12,27 +12,29 @@ function AddAdditionalIncomeForm({
     userId,
     additionalIncome,
     setAdditionalIncome,
+    setChangeArray,
 }) {
     const [source, setSource] = useState('');
     const [sumIncome, setSumIncome] = useState('');
 
-    const addAdditionalIncomeHandler = (userId, source, sumIncome) => {
-        const newAdditionalIncome = {
-            employee_id: userId,
-            source: source,
-            sumIncome: sumIncome,
-            month: date.getMonth(),
-            year: date.getFullYear(),
-        };
-        setAdditionalIncome([...additionalIncome, newAdditionalIncome]);
-        setDisabledFormAdditionalIncome(false);
-        setHideButtons(false);
-    };
+    // const addAdditionalIncomeHandler = (source, sum) => {
+    //     const newAdditionalIncome = {
+    //         employee_id: userId,
+    //         source: source,
+    //         sum: sum,
+    //         month: date.getMonth(),
+    //         year: date.getFullYear(),
+    //     };
+    //     setAdditionalIncome([...additionalIncome, newAdditionalIncome]);
+    //     setChangeArray([additionalIncome]);
+    //     setDisabledFormAdditionalIncome(false);
+    //     setHideButtons(false);
+    // };
 
     const onSubmitHandler = async (event) => {
         try {
             event.preventDefault();
-            // setIsLoading(true);
+            setIsLoading(true);
             setSource('');
             setSumIncome('');
 
@@ -52,11 +54,14 @@ function AddAdditionalIncomeForm({
                     headers: { 'Content-type': 'multipart/form-data' },
                 },
             });
-            addAdditionalIncomeHandler(userId, source, sumIncome);
+            setChangeArray([additionalIncome]);
+            setDisabledFormAdditionalIncome(false);
+            setHideButtons(false);
+            // addAdditionalIncomeHandler(source, sumIncome);
         } catch (error) {
             console.error(error);
         }
-        // setIsLoading(false);
+        setIsLoading(false);
     };
     return (
         <div className="add-sale__form-wrapper form-wrapper">
@@ -82,7 +87,6 @@ function AddAdditionalIncomeForm({
                     onChange={(e) => setSumIncome(e.target.value)}
                     required
                 />
-                <div></div>
                 <button className="form__btn" type="submit">
                     Добавить
                 </button>

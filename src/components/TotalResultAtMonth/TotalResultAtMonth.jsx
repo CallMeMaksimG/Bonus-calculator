@@ -25,7 +25,7 @@ const TotalResultAtMonth = ({ array, additionalIncome }) => {
                 <p>Итого к выплате за месяц</p>
                 <span>
                     {(
-                        totalCalculator(additionalIncome, 'sumIncome') +
+                        totalCalculator(additionalIncome, 'sum') +
                         totalCalculator(array, 'bonus')
                     ).toLocaleString()}{' '}
                     &#8381;

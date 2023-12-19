@@ -23,6 +23,7 @@ function Home({
     setIsLoading,
     additionalIncome,
     setAdditionalIncome,
+    additionalIncomeThisYearAndMonth
 }) {
     const [hideButtons, setHideButtons] = useState(false);
     const [disabledFormAdditionalIncome, setDisabledFormAdditionalIncome] =
@@ -87,6 +88,9 @@ function Home({
                                 userId={userId}
                                 additionalIncome={additionalIncome}
                                 setAdditionalIncome={setAdditionalIncome}
+                                isLoading={isLoading}
+                                setIsLoading={setIsLoading}
+                                setChangeArray={setChangeArray}
                             />
                         )}
                     </div>
@@ -127,10 +131,11 @@ function Home({
                         additionalIncome={additionalIncome}
                         startDate={startDate}
                         totalCalculator={totalCalculator}
+                        additionalIncomeThisYearAndMonth={additionalIncomeThisYearAndMonth}
                     />
                 )}
 
-                {salesThisYearAndMonth.length > 0 && (
+                {(salesThisYearAndMonth.length > 0 || additionalIncomeThisYearAndMonth.length > 0) && (
                     <TotalResultAtMonth array={salesThisYearAndMonth} additionalIncome={additionalIncome}/>
                 )}
             </section>

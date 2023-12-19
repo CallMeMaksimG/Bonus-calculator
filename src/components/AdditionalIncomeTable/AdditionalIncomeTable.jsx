@@ -1,7 +1,11 @@
 import './AdditionalIncomeTable.scss';
 
-function AdditionalIncomeTable({additionalIncome, startDate, totalCalculator}) {
-    console.log(additionalIncome)
+function AdditionalIncomeTable({
+    additionalIncome,
+    startDate,
+    totalCalculator,
+    additionalIncomeThisYearAndMonth,
+}) {
     return (
         <table className="additional-income-table">
             <caption>Дополнительный доход</caption>
@@ -12,7 +16,7 @@ function AdditionalIncomeTable({additionalIncome, startDate, totalCalculator}) {
                 </tr>
             </thead>
             <tbody>
-                {additionalIncome
+                {additionalIncomeThisYearAndMonth
                     .filter(
                         (source) =>
                             startDate.getFullYear() === Number(source.year) &&
@@ -21,22 +25,27 @@ function AdditionalIncomeTable({additionalIncome, startDate, totalCalculator}) {
                     .map((source) => {
                         return (
                             <tr
-                                key={source.additionalIncome_id}
-                                // data-id={sale.sales_id}
+                                key={source.additional_income_id}
+                                data-id={source.additional_income_id}
                                 // onClick={onClickSaleItem}
                             >
                                 <td>{source.source}</td>
-                                <td>{Number((source.sumIncome)).toLocaleString()}&nbsp;&#8381;</td>
+                                <td>
+                                    {Number(source.sum).toLocaleString()}
+                                    &nbsp;&#8381;
+                                </td>
                             </tr>
                         );
                     })}
             </tbody>
             <tfoot>
-                    <tr>
-                        <td>Итого</td>
-                        <td>{totalCalculator(additionalIncome, 'sumIncome')}&nbsp;&#8381;</td>
-                    </tr>
-                </tfoot>
+                <tr>
+                    <td>Итого</td>
+                    <td>
+                        {totalCalculator(additionalIncome, 'sum')}&nbsp;&#8381;
+                    </td>
+                </tr>
+            </tfoot>
         </table>
     );
 }

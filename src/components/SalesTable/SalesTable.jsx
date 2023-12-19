@@ -16,7 +16,6 @@ function SalesTable({
 }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalItemInfo, setModalItemInfo] = useState([]);
-    console.log(sales)
     const onClickSaleItem = async (e) => {
         try {
             setModalOpen(true);
@@ -67,15 +66,6 @@ function SalesTable({
         setModalOpen(false);
         setChangeArray(true);
     };
-    // const totalCalculator = (arr, key) => {
-    //     return arr
-    //         .reduce(
-    //             (acc, curentValue) =>
-    //                 Math.round(acc + Number(curentValue[key])),
-    //             0
-    //         )
-    //         .toLocaleString();
-    // };
     const bonusCalculation = (price, percent) =>
         Math.round((Number(price) / 100) * Number(percent));
     return (
