@@ -42,7 +42,7 @@ function AdditionalIncomeTable({
                 <tr>
                     <td>Итого</td>
                     <td>
-                        {totalCalculator(additionalIncome, 'sum')}&nbsp;&#8381;
+                        {totalCalculator(additionalIncomeThisYearAndMonth, 'sum')}&nbsp;&#8381;
                     </td>
                 </tr>
             </tfoot>

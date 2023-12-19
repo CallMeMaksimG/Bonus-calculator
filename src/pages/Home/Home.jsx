@@ -126,7 +126,7 @@ function Home({
                         totalCalculator={totalCalculator}
                     />
                 )}
-                {additionalIncome.length > 0 && (
+                {additionalIncomeThisYearAndMonth.length > 0 && (
                     <AdditionalIncomeTable
                         additionalIncome={additionalIncome}
                         startDate={startDate}
@@ -136,7 +136,7 @@ function Home({
                 )}
 
                 {(salesThisYearAndMonth.length > 0 || additionalIncomeThisYearAndMonth.length > 0) && (
-                    <TotalResultAtMonth array={salesThisYearAndMonth} additionalIncome={additionalIncome}/>
+                    <TotalResultAtMonth array={salesThisYearAndMonth} additionalIncomeThisYearAndMonth={additionalIncomeThisYearAndMonth}/>
                 )}
             </section>
         </main>

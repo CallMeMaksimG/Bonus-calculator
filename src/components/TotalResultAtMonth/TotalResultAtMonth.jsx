@@ -6,7 +6,7 @@ const totalCalculator = (arr, key) => {
         0
     );
 };
-const TotalResultAtMonth = ({ array, additionalIncome }) => {
+const TotalResultAtMonth = ({ array, additionalIncomeThisYearAndMonth }) => {
     return (
         <div className="total-result">
             <div className="total-result__sales">
@@ -25,7 +25,7 @@ const TotalResultAtMonth = ({ array, additionalIncome }) => {
                 <p>Итого к выплате за месяц</p>
                 <span>
                     {(
-                        totalCalculator(additionalIncome, 'sum') +
+                        totalCalculator(additionalIncomeThisYearAndMonth, 'sum') +
                         totalCalculator(array, 'bonus')
                     ).toLocaleString()}{' '}
                     &#8381;
