@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/Bonus-calculator/static/css/main.6bb1d72d.css",
+    "main.js": "/Bonus-calculator/static/js/main.de7dafb0.js",
+    "static/media/geometria_medium.otf": "/Bonus-calculator/static/media/geometria_medium.7ab28e0b639484784c93.otf",
+    "static/media/geometria_bold.otf": "/Bonus-calculator/static/media/geometria_bold.b44887183ba2d29c6642.otf",
+    "static/media/geometria_light.otf": "/Bonus-calculator/static/media/geometria_light.35f7588a8ea2cfe04ae4.otf",
+    "index.html": "/Bonus-calculator/index.html",
+    "main.6bb1d72d.css.map": "/Bonus-calculator/static/css/main.6bb1d72d.css.map",
+    "main.de7dafb0.js.map": "/Bonus-calculator/static/js/main.de7dafb0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6bb1d72d.css",
+    "static/js/main.de7dafb0.js"
+  ]
+}
