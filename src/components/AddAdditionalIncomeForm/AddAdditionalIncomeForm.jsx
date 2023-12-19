@@ -3,6 +3,8 @@ import Preloader from '../Preloader/Preloader';
 import './AddAdditionalIncomeForm.scss';
 
 function AddAdditionalIncomeForm({
+    setDisabledFormAdditionalIncome,
+    setHideButtons,
     isLoading,
     date,
     setIsLoading,
@@ -23,7 +25,8 @@ function AddAdditionalIncomeForm({
             year: date.getFullYear(),
         };
         setAdditionalIncome([...additionalIncome, newAdditionalIncome]);
-        
+        setDisabledFormAdditionalIncome(false);  
+        setHideButtons(false);
     };
     return (
         <div className="add-sale__form-wrapper form-wrapper">

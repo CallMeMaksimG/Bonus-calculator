@@ -8,6 +8,7 @@ function AddSaleForm({
     setSales,
     date,
     setDisabledForm,
+    setHideButtons,
     setChangeArray,
     userId,
     isLoading,
@@ -32,6 +33,7 @@ function AddSaleForm({
         setSales([...sales, newSale]);
         setChangeArray([sales]);
         setDisabledForm(false);
+        setHideButtons(false);
     };
     const onSubmitHandler = async (event) => {
         try {

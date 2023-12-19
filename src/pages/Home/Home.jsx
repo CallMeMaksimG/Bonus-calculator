@@ -24,7 +24,7 @@ function Home({
     additionalIncome,
     setAdditionalIncome,
 }) {
-    const [addButtons, setAddButtons] = useState(false);
+    const [hideButtons, setHideButtons] = useState(false);
     const [disabledFormAdditionalIncome, setDisabledFormAdditionalIncome] =
         useState(false);
     const totalCalculator = (arr, key) => {
@@ -41,12 +41,12 @@ function Home({
             <section className="add-sale">
                 <DateInput startDate={startDate} setStartDate={setStartDate} />
                 <button
-                    onClick={() => setAddButtons(!addButtons)}
+                    onClick={() => setHideButtons(!hideButtons)}
                     className="add-btn"
                 >
                     Добавить
                 </button>
-                {addButtons && (
+                {hideButtons && (
                     <div>
                         <button
                             className="add-sale-btn add-btn"
@@ -59,6 +59,7 @@ function Home({
                         {disabledForm && (
                             <AddSaleForm
                                 setDisabledForm={setDisabledForm}
+                                setHideButtons={setHideButtons}
                                 date={startDate}
                                 sales={sales}
                                 setSales={setSales}
@@ -80,6 +81,8 @@ function Home({
                         </button>
                         {disabledFormAdditionalIncome && (
                             <AddAdditionalIncomeForm
+                                setDisabledFormAdditionalIncome={setDisabledFormAdditionalIncome}
+                                setHideButtons={setHideButtons}
                                 date={startDate}
                                 userId={userId}
                                 additionalIncome={additionalIncome}

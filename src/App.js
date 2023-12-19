@@ -10,10 +10,8 @@ import './App.scss';
 
 function App() {
     const [disabledForm, setDisabledForm] = useState(false);
-   
     const [sales, setSales] = useState([]);
     const [additionalIncome, setAdditionalIncome] = useState([]);
-    // console.log(additionalIncome)
     const [startDate, setStartDate] = useState(new Date());
     const [changeArray, setChangeArray] = useState([]);
     const [showInfo, setShowInfo] = useState(false);
