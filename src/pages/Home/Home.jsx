@@ -132,6 +132,9 @@ function Home({
                         startDate={startDate}
                         totalCalculator={totalCalculator}
                         additionalIncomeThisYearAndMonth={additionalIncomeThisYearAndMonth}
+                        isLoading={isLoading}
+                        setIsLoading={setIsLoading}
+                        setAdditionalIncome={setAdditionalIncome}
                     />
                 )}
 

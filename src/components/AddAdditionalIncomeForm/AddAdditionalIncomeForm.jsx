@@ -11,7 +11,6 @@ function AddAdditionalIncomeForm({
     setIsLoading,
     userId,
     additionalIncome,
-    setAdditionalIncome,
     setChangeArray,
 }) {
     const [source, setSource] = useState('');
@@ -57,7 +56,6 @@ function AddAdditionalIncomeForm({
             setChangeArray([additionalIncome]);
             setDisabledFormAdditionalIncome(false);
             setHideButtons(false);
-            // addAdditionalIncomeHandler(source, sumIncome);
         } catch (error) {
             console.error(error);
         }
