@@ -13,9 +13,18 @@
 }
 
 .total-result__sales,
-.total-result__bonus {
+.total-result__bonus, .total-result__total {
     display: flex;
     justify-content: space-between;
+}
+
+.total-result__bonus {
+ padding-bottom: 10px;
+}
+
+.total-result__total {
+    border-top: 1px solid black;
+    padding-top: 10px;
 }
 
 

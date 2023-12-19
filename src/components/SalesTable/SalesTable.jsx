@@ -16,7 +16,7 @@ function SalesTable({
 }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalItemInfo, setModalItemInfo] = useState([]);
-    
+    console.log(sales)
     const onClickSaleItem = async (e) => {
         try {
             setModalOpen(true);
@@ -141,12 +141,12 @@ function SalesTable({
                                     onClick={onClickSaleItem}
                                 >
                                     <td>{sale.title}</td>
-                                    <td>{sale.price}&nbsp;&#8381;</td>
+                                    <td>{Number((sale.price)).toLocaleString()}&nbsp;&#8381;</td>
                                     <td>
-                                        {bonusCalculation(
+                                        {Number(bonusCalculation(
                                             sale.price,
                                             sale.percent
-                                        )}
+                                        )).toLocaleString()}
                                         &nbsp;&#8381;
                                     </td>
                                 </tr>

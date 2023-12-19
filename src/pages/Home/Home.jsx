@@ -128,7 +128,7 @@ function Home({
                 )}
 
                 {salesThisYearAndMonth.length > 0 && (
-                    <TotalResultAtMonth array={salesThisYearAndMonth} />
+                    <TotalResultAtMonth array={salesThisYearAndMonth} additionalIncome={additionalIncome}/>
                 )}
             </section>
         </main>

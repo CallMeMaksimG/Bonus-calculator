@@ -21,12 +21,12 @@ function AdditionalIncomeTable({additionalIncome, startDate, totalCalculator}) {
                     .map((source) => {
                         return (
                             <tr
-                                key={source.id}
+                                key={source.additionalIncome_id}
                                 // data-id={sale.sales_id}
                                 // onClick={onClickSaleItem}
                             >
                                 <td>{source.source}</td>
-                                <td>{source.sumIncome}&nbsp;&#8381;</td>
+                                <td>{Number((source.sumIncome)).toLocaleString()}&nbsp;&#8381;</td>
                             </tr>
                         );
                     })}
