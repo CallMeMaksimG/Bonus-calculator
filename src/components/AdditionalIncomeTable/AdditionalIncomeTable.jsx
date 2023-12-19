@@ -68,18 +68,19 @@ function AdditionalIncomeTable({
     };
     return (
         <>
-            {modalOpen && (
+            {/* {modalOpen && ( */}
                 <>
-                    <div className="overlay"></div>
-                    <div className="modal-addictional-income">
+                    <div className={modalOpen ? "overlay overlay--open" : "overlay"}></div>
+                    <div className={modalOpen ? "modal-addictional-income modal-addictional-income--open" : "modal-addictional-income"}>
+                        <button onClick={() => setModalOpen(!modalOpen)} className='modal-addictional-income__close-btn'><img src="./../img/close.svg" alt="close" /></button>
                         {isLoading && <Preloader />}
                         <div
                             key={modalItemInfo.addictional_income_id}
                             className="modal-addictional-income__item-info"
                         >
-                            <p>{modalItemInfo.source}</p>
+                            <h3>{modalItemInfo.source}</h3>
                             <p>
-                                <span>К выплате</span> {modalItemInfo.sum}
+                                <span>К выплате:</span> {modalItemInfo.sum}
                                 &nbsp;&#8381;
                             </p>
                         </div>
@@ -99,7 +100,7 @@ function AdditionalIncomeTable({
                         </div>
                     </div>
                 </>
-            )}
+            {/* )} */}
             <table className="additional-income-table">
                 <caption>Дополнительный доход</caption>
                 <thead>
