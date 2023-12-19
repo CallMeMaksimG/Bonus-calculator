@@ -70,16 +70,17 @@ function SalesTable({
         Math.round((Number(price) / 100) * Number(percent));
     return (
         <>
-            {modalOpen && (
+            {/* {modalOpen && ( */}
                 <>
-                    <div className="overlay"></div>
-                    <div className="modal-sale">
+                    <div className={modalOpen ? "overlay overlay--open" : "overlay"}></div>
+                    <div className={modalOpen ? "modal-sale modal-sale--open" : "modal-sale"}>
+                    <button onClick={() => setModalOpen(!modalOpen)} className='modal-sale__close-btn'><img src="./../img/close.svg" alt="close" /></button>
                         {isLoading && <Preloader />}
                         <div
                             key={modalItemInfo.sales_id}
                             className="modal-sale__item-info"
                         >
-                            <p>{modalItemInfo.title}</p>
+                            <h3>{modalItemInfo.title}</h3>
                             <p>
                                 <span>Цена</span> {modalItemInfo.price}
                                 &nbsp;&#8381;
@@ -105,7 +106,7 @@ function SalesTable({
                         </div>
                     </div>
                 </>
-            )}
+            {/* )} */}
 
             <table className="sales__table">
                 <caption>{percent} %</caption>

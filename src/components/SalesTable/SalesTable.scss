@@ -53,14 +53,24 @@
 }
 
 .overlay {
-    background: black;
     width: 100vw;
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
     opacity: 0.7;
+    visibility: hidden;
+    transition: opacity .5s ease-in-out;
+    opacity: 0;
 }
+
+.overlay--open {
+    opacity: 1;
+    visibility: visible;
+    background-color: rgba(0, 0, 0, 0.7);
+    
+}
+
 .modal-sale {
     position: fixed;
     width: 450px;
@@ -73,9 +83,33 @@
     transform: translate(-50%, -60%);
     display: flex;
     flex-direction: column;
+    visibility: hidden;
 
     @media (max-width: 800px) {
         width: 90%;
+    }
+
+    @media (max-width: 700px) {
+        width: 100%;
+        height: 40vh;
+        padding: 60px 20px;
+        top: 60%;
+        left: 0;
+        bottom: 0;
+        transform: translate(0%, 0%);
+        display: flex;
+        flex-direction: column;
+        border-radius: 16px 16px 0 0;
+
+        transform: translateY(100%);
+        transition: all .5s ease-in-out;
+    }
+}
+
+.modal-sale--open {
+    visibility: visible;
+    @media (max-width: 700px) {
+        transform: translate(0%, 0%);
     }
 }
 
@@ -84,7 +118,30 @@
     flex-direction: column;
     gap: 5px;
 
+    h3 {
+        font-weight: 400;
+        font-size: 20px;
+    }
     p {
+        span {
+            font-weight: 300;
+            margin-right: 10px;
+        }
+    }
+
+    @media (max-width: 700px) {
+        h3 {
+            font-size: 26px;
+        }
+
+        p {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+        
+    }
+
+    h3 {
         span {
             font-weight: 300;
             margin-right: 10px;
@@ -96,6 +153,10 @@
     margin-top: auto;
     display: flex;
     justify-content: space-between;
+
+    @media (max-width: 700px) {
+        margin-top: 50px;
+    }
 }
 
 .modal-sale__buttons-close {
@@ -106,6 +167,10 @@
     padding: 8.5px 0;
     width: 130px;
     font-size: 15px;
+
+    @media (max-width: 700px) {
+        display: none;
+    }
 }
 
 .modal-sale__buttons-return {
@@ -116,4 +181,22 @@
     width: 130px;
     font-size: 15px;
     color: white;
+
+    @media (max-width: 700px) {
+        height: 60px;
+        width: 100%;
+        font-size: 20px;
+    }
+}
+
+.modal-sale__close-btn {
+    display: none;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 40px;
+
+    @media (max-width: 700px) {
+        display: block;
+    }
 }

@@ -68,7 +68,6 @@ function AdditionalIncomeTable({
     };
     return (
         <>
-            {/* {modalOpen && ( */}
                 <>
                     <div className={modalOpen ? "overlay overlay--open" : "overlay"}></div>
                     <div className={modalOpen ? "modal-addictional-income modal-addictional-income--open" : "modal-addictional-income"}>
@@ -100,7 +99,6 @@ function AdditionalIncomeTable({
                         </div>
                     </div>
                 </>
-            {/* )} */}
             <table className="additional-income-table">
                 <caption>Дополнительный доход</caption>
                 <thead>
