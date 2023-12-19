@@ -135,6 +135,7 @@ function Home({
                         isLoading={isLoading}
                         setIsLoading={setIsLoading}
                         setAdditionalIncome={setAdditionalIncome}
+                        setChangeArray={setChangeArray}
                     />
                 )}
 

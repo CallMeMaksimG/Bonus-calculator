@@ -11,6 +11,7 @@ function AdditionalIncomeTable({
     additionalIncomeThisYearAndMonth,
     isLoading,
     setIsLoading,
+    setChangeArray
 }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalItemInfo, setModalItemInfo] = useState([]);
@@ -39,6 +40,32 @@ function AdditionalIncomeTable({
         setIsLoading(false);
         setAdditionalIncome([...additionalIncome, additionalIncome]);
     };
+
+    const onClickDeleteBtn = async (id) => {
+        try {
+            setIsLoading(true);
+            id = modalItemInfo.additional_income_id;
+            let formData = new FormData();
+            formData.append('additional_income_id', id);
+
+            await axios({
+                method: 'post',
+                baseURL: 'http://f0883110.xsph.ru',
+                url: `/additionalIncome.php/?additional_income_id=${id}`,
+                data: formData,
+                config: {
+                    headers: { 'Content-type': 'multipart/form-data' },
+                },
+            });
+        } catch (error) {
+            alert('Ошибка при запросе данных');
+            console.error(error);
+        }
+        setAdditionalIncome(additionalIncome.filter((income) => income.additional_income_id !== id));
+        setIsLoading(false);
+        setModalOpen(false);
+        setChangeArray(true);
+    };
     return (
         <>
             {modalOpen && (
@@ -64,7 +91,7 @@ function AdditionalIncomeTable({
                                 Закрыть
                             </button>
                             <button
-                                onClick={''}
+                                onClick={onClickDeleteBtn}
                                 className="modal-addictional-income__buttons-delete"
                             >
                                 Удалить
