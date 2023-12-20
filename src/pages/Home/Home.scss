@@ -19,7 +19,83 @@
     }
 }
 
-.add-income-btn, .add-sale-btn {
-    border: 1.5px solid #1b1b1b;
+.add-btns-wrapper__overlay {
+    display: none;
+
+    @media (max-width: 800px) {
+        display: block;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        opacity: 0.7;
+        visibility: hidden;
+        transition: all 0.5s ease-in-out;
+        opacity: 0;
+    }
 }
 
+.add-btns-wrapper__overlay--open {
+    @media (max-width: 800px) {
+        opacity: 1;
+        visibility: visible;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+}
+
+.add-btns-wrapper {
+    display: none;
+    @media (max-width: 700px) {
+        display: block;
+        position: fixed;
+        background: #fff;
+        width: 100%;
+        left: 0;
+        height: 30vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        top: 70%;
+        border-radius: 16px 16px 0 0;
+        padding: 50px 10px 20px;
+        z-index: 10;
+        transform: translateY(100%);
+        transition: all 0.5s ease-in-out;
+
+        &--open {
+            display: block;
+            visibility: visible;
+            @media (max-width: 700px) {
+                transform: translate(0%, 0%);
+            }
+        }
+    }
+
+    &--open {
+        display: block;
+    }
+}
+
+.add-btns-wrapper__close-btn {
+    display: none;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 40px;
+
+    @media (max-width: 700px) {
+        display: block;
+    }
+}
+
+.add-income-btn,
+.add-sale-btn {
+    border: 1.5px solid #1b1b1b;
+
+    @media (max-width: 700px) {
+        width: 100%;
+        height: 60px;
+    }
+}

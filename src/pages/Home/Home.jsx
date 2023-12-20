@@ -23,7 +23,7 @@ function Home({
     setIsLoading,
     additionalIncome,
     setAdditionalIncome,
-    additionalIncomeThisYearAndMonth
+    additionalIncomeThisYearAndMonth,
 }) {
     const [hideButtons, setHideButtons] = useState(false);
     const [disabledFormAdditionalIncome, setDisabledFormAdditionalIncome] =
@@ -47,8 +47,27 @@ function Home({
                 >
                     Добавить
                 </button>
-                {hideButtons && (
-                    <div>
+                <>
+                    <div
+                        className={
+                            hideButtons
+                                ? 'add-btns-wrapper__overlay add-btns-wrapper__overlay--open'
+                                : 'add-btns-wrapper__overlay'
+                        }
+                    ></div>
+                    <div
+                        className={
+                            hideButtons
+                                ? 'add-btns-wrapper add-btns-wrapper--open'
+                                : 'add-btns-wrapper'
+                        }
+                    >
+                        <button
+                            onClick={() => setHideButtons(!hideButtons)}
+                            className="add-btns-wrapper__close-btn"
+                        >
+                            <img src="./../img/close.svg" alt="close" />
+                        </button>
                         <button
                             className="add-sale-btn add-btn"
                             onClick={() =>
@@ -80,9 +99,12 @@ function Home({
                         >
                             Доп. доход
                         </button>
+
                         {disabledFormAdditionalIncome && (
                             <AddAdditionalIncomeForm
-                                setDisabledFormAdditionalIncome={setDisabledFormAdditionalIncome}
+                                setDisabledFormAdditionalIncome={
+                                    setDisabledFormAdditionalIncome
+                                }
                                 setHideButtons={setHideButtons}
                                 date={startDate}
                                 userId={userId}
@@ -94,7 +116,7 @@ function Home({
                             />
                         )}
                     </div>
-                )}
+                </>
             </section>
 
             <section className="sales">
@@ -131,7 +153,9 @@ function Home({
                         additionalIncome={additionalIncome}
                         startDate={startDate}
                         totalCalculator={totalCalculator}
-                        additionalIncomeThisYearAndMonth={additionalIncomeThisYearAndMonth}
+                        additionalIncomeThisYearAndMonth={
+                            additionalIncomeThisYearAndMonth
+                        }
                         isLoading={isLoading}
                         setIsLoading={setIsLoading}
                         setAdditionalIncome={setAdditionalIncome}
@@ -139,8 +163,14 @@ function Home({
                     />
                 )}
 
-                {(salesThisYearAndMonth.length > 0 || additionalIncomeThisYearAndMonth.length > 0) && (
-                    <TotalResultAtMonth array={salesThisYearAndMonth} additionalIncomeThisYearAndMonth={additionalIncomeThisYearAndMonth}/>
+                {(salesThisYearAndMonth.length > 0 ||
+                    additionalIncomeThisYearAndMonth.length > 0) && (
+                    <TotalResultAtMonth
+                        array={salesThisYearAndMonth}
+                        additionalIncomeThisYearAndMonth={
+                            additionalIncomeThisYearAndMonth
+                        }
+                    />
                 )}
             </section>
         </main>
