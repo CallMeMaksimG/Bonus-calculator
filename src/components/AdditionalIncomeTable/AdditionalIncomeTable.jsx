@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Preloader from '../Preloader/Preloader';
 import './AdditionalIncomeTable.scss';
@@ -66,6 +66,19 @@ function AdditionalIncomeTable({
         setModalOpen(false);
         setChangeArray(true);
     };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (event.target.className.includes('overlay overlay--open')) {
+                setModalOpen(false);
+            }
+        };
+        document.body.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.body.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
     return (
         <>
                 <>
