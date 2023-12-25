@@ -80,6 +80,12 @@ function App() {
         (sale) => sale.percent === '3'
     );
 
+    const saleAtSpecialCategory = salesThisYearAndMonth.filter(
+        (sale) => sale.percent === '7701'
+    );
+
+    console.log(saleAtSpecialCategory)
+
     const additionalIncomeThisYearAndMonth = additionalIncome.filter(
         (additionalIncome) =>
             Number(additionalIncome.year) === startDate.getFullYear() &&
@@ -106,6 +112,7 @@ function App() {
                                         salesThisYearAndMonth={
                                             salesThisYearAndMonth
                                         }
+                                        saleAtSpecialCategory={saleAtSpecialCategory}
                                         setChangeArray={setChangeArray}
                                         userId={userId}
                                         isLoading={isLoading}

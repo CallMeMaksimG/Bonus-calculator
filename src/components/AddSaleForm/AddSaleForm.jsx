@@ -17,8 +17,14 @@ function AddSaleForm({
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [percent, setPercent] = useState('');
-    const interestCalculation = (price, percent) =>
-        Math.round((Number(price) / 100) * Number(percent));
+    console.log(typeof percent)
+    const interestCalculation = (price, percent) => {
+        if (percent === '7701') {
+            return Math.round((Number(price) / 100) * 1);
+        } else {
+            return Math.round((Number(price) / 100) * Number(percent));
+        }
+    };
 
     const addSalesHandler = (userId, title, price, percent) => {
         const newSale = {
@@ -127,6 +133,23 @@ function AddSaleForm({
                                 className="add-sale__form-radio-label"
                             >
                                 3%
+                            </label>
+                        </div>
+                        <div className="add-sale__form-radio">
+                            <input
+                                className="add-sale__form-radio-btn"
+                                id="special-percent"
+                                type="radio"
+                                name="radio"
+                                value="7701"
+                                checked={percent == '7701' ? true : false}
+                                onChange={(e) => setPercent(e.target.value)}
+                            />{' '}
+                            <label
+                                htmlFor="special-percent"
+                                className="add-sale__form-radio-label"
+                            >
+                                7701
                             </label>
                         </div>
                     </fieldset>
