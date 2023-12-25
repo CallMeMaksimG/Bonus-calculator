@@ -12,7 +12,7 @@ function SalesTable({
     setSales,
     isLoading,
     setIsLoading,
-    totalCalculator
+    totalCalculator,
 }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalItemInfo, setModalItemInfo] = useState([]);
@@ -79,48 +79,65 @@ function SalesTable({
             document.body.removeEventListener('click', handleClickOutside);
         };
     }, []);
-    const bonusCalculation = (price, percent) =>
-        Math.round((Number(price) / 100) * Number(percent));
+    const bonusCalculation = (price, percent) => {
+        if (percent === '7701') {
+            return Math.round((Number(price) / 100) * 1);
+        } else {
+            return Math.round((Number(price) / 100) * Number(percent));
+        }
+    };
+
     return (
         <>
-                <>
-                    <div className={modalOpen ? "overlay overlay--open" : "overlay"}></div>
-                    <div className={modalOpen ? "modal-sale modal-sale--open" : "modal-sale"}>
-                    <button onClick={() => setModalOpen(!modalOpen)} className='modal-sale__close-btn'><img src="./../img/close.svg" alt="close" /></button>
-                        {isLoading && <Preloader />}
-                        <div
-                            key={modalItemInfo.sales_id}
-                            className="modal-sale__item-info"
-                        >
-                            <h3>{modalItemInfo.title}</h3>
-                            <p>
-                                <span>Цена</span> {modalItemInfo.price}
-                                &nbsp;&#8381;
-                            </p>
-                            <p>
-                                <span>К выплате</span> {modalItemInfo.bonus}
-                                &nbsp;&#8381;
-                            </p>
-                        </div>
-                        <div className="modal-sale__buttons">
-                            <button
-                                onClick={() => setModalOpen(false)}
-                                className="modal-sale__buttons-close"
-                            >
-                                Закрыть
-                            </button>
-                            <button
-                                onClick={onClickReturnBtn}
-                                className="modal-sale__buttons-return"
-                            >
-                                Возврат
-                            </button>
-                        </div>
+            <>
+                <div
+                    className={modalOpen ? 'overlay overlay--open' : 'overlay'}
+                ></div>
+                <div
+                    className={
+                        modalOpen ? 'modal-sale modal-sale--open' : 'modal-sale'
+                    }
+                >
+                    <button
+                        onClick={() => setModalOpen(!modalOpen)}
+                        className="modal-sale__close-btn"
+                    >
+                        <img src="./../img/close.svg" alt="close" />
+                    </button>
+                    {isLoading && <Preloader />}
+                    <div
+                        key={modalItemInfo.sales_id}
+                        className="modal-sale__item-info"
+                    >
+                        <h3>{modalItemInfo.title}</h3>
+                        <p>
+                            <span>Цена</span> {modalItemInfo.price}
+                            &nbsp;&#8381;
+                        </p>
+                        <p>
+                            <span>К выплате</span> {modalItemInfo.bonus}
+                            &nbsp;&#8381;
+                        </p>
                     </div>
-                </>
+                    <div className="modal-sale__buttons">
+                        <button
+                            onClick={() => setModalOpen(false)}
+                            className="modal-sale__buttons-close"
+                        >
+                            Закрыть
+                        </button>
+                        <button
+                            onClick={onClickReturnBtn}
+                            className="modal-sale__buttons-return"
+                        >
+                            Возврат
+                        </button>
+                    </div>
+                </div>
+            </>
 
             <table className="sales__table">
-                <caption>{percent} %</caption>
+                <caption>{percent !== '7701' ?  `${percent} %` : percent}</caption>
                 <thead>
                     <tr>
                         <th>Наименование</th>
@@ -143,12 +160,17 @@ function SalesTable({
                                     onClick={onClickSaleItem}
                                 >
                                     <td>{sale.title}</td>
-                                    <td>{Number((sale.price)).toLocaleString()}&nbsp;&#8381;</td>
                                     <td>
-                                        {Number(bonusCalculation(
-                                            sale.price,
-                                            sale.percent
-                                        )).toLocaleString()}
+                                        {Number(sale.price).toLocaleString()}
+                                        &nbsp;&#8381;
+                                    </td>
+                                    <td>
+                                        {Number(
+                                            bonusCalculation(
+                                                sale.price,
+                                                sale.percent
+                                            )
+                                        ).toLocaleString()}
                                         &nbsp;&#8381;
                                     </td>
                                 </tr>

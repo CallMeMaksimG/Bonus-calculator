@@ -17,7 +17,6 @@ function AddSaleForm({
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [percent, setPercent] = useState('');
-    console.log(typeof percent)
     const interestCalculation = (price, percent) => {
         if (percent === '7701') {
             return Math.round((Number(price) / 100) * 1);

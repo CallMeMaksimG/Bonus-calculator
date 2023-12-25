@@ -16,6 +16,7 @@ function Home({
     setSales,
     saleAtOnePercent,
     saleAtThreePercent,
+    saleAtSpecialCategory,
     salesThisYearAndMonth,
     setChangeArray,
     userId,
@@ -164,6 +165,20 @@ function Home({
                         setSales={setSales}
                         percent="3"
                         array={saleAtThreePercent}
+                        startDate={startDate}
+                        setChangeArray={setChangeArray}
+                        userId={userId}
+                        isLoading={isLoading}
+                        setIsLoading={setIsLoading}
+                        totalCalculator={totalCalculator}
+                    />
+                )}
+                {saleAtSpecialCategory.length > 0 && (
+                    <SalesTable
+                        sales={sales}
+                        setSales={setSales}
+                        percent="7701"
+                        array={saleAtSpecialCategory}
                         startDate={startDate}
                         setChangeArray={setChangeArray}
                         userId={userId}
