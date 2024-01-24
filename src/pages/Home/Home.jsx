@@ -1,43 +1,26 @@
 import DateInput from '../../components/DateInput/DateInput';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import AddSaleForm from '../../components/AddSaleForm/AddSaleForm';
 import AddAdditionalIncomeForm from '../../components/AddAdditionalIncomeForm/AddAdditionalIncomeForm';
 import SalesTable from '../../components/SalesTable/SalesTable';
 import TotalResultAtMonth from '../../components/TotalResultAtMonth/TotalResultAtMonth';
 import './Home.scss';
 import AdditionalIncomeTable from '../../components/AdditionalIncomeTable/AdditionalIncomeTable';
+import { AppContext } from '../../context/app.context';
 
 function Home({
-    startDate,
     setStartDate,
-    disabledForm,
-    setDisabledForm,
-    sales,
-    setSales,
     saleAtOnePercent,
     saleAtThreePercent,
     saleAtSpecialCategory,
-    salesThisYearAndMonth,
-    setChangeArray,
-    userId,
-    isLoading,
-    setIsLoading,
-    additionalIncome,
-    setAdditionalIncome,
     additionalIncomeThisYearAndMonth,
+    salesThisYearAndMonth,
 }) {
+    const { startDate, disabledForm, setDisabledForm, additionalIncome } =
+        useContext(AppContext);
     const [hideButtons, setHideButtons] = useState(false);
     const [disabledFormAdditionalIncome, setDisabledFormAdditionalIncome] =
         useState(false);
-    const totalCalculator = (arr, key) => {
-        return arr
-            .reduce(
-                (acc, curentValue) =>
-                    Math.round(acc + Number(curentValue[key])),
-                0
-            )
-            .toLocaleString();
-    };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -102,17 +85,7 @@ function Home({
                             Продажа
                         </button>
                         {disabledForm && (
-                            <AddSaleForm
-                                setDisabledForm={setDisabledForm}
-                                setHideButtons={setHideButtons}
-                                date={startDate}
-                                sales={sales}
-                                setSales={setSales}
-                                setChangeArray={setChangeArray}
-                                userId={userId}
-                                isLoading={isLoading}
-                                setIsLoading={setIsLoading}
-                            />
+                            <AddSaleForm setHideButtons={setHideButtons} />
                         )}
                         <button
                             onClick={() =>
@@ -131,13 +104,6 @@ function Home({
                                     setDisabledFormAdditionalIncome
                                 }
                                 setHideButtons={setHideButtons}
-                                date={startDate}
-                                userId={userId}
-                                additionalIncome={additionalIncome}
-                                setAdditionalIncome={setAdditionalIncome}
-                                isLoading={isLoading}
-                                setIsLoading={setIsLoading}
-                                setChangeArray={setChangeArray}
                             />
                         )}
                     </div>
@@ -146,59 +112,20 @@ function Home({
 
             <section className="sales">
                 {saleAtOnePercent.length > 0 && (
-                    <SalesTable
-                        sales={sales}
-                        setSales={setSales}
-                        percent="1"
-                        array={saleAtOnePercent}
-                        startDate={startDate}
-                        setChangeArray={setChangeArray}
-                        userId={userId}
-                        isLoading={isLoading}
-                        setIsLoading={setIsLoading}
-                        totalCalculator={totalCalculator}
-                    />
+                    <SalesTable percent="1" array={saleAtOnePercent} />
                 )}
                 {saleAtThreePercent.length > 0 && (
-                    <SalesTable
-                        sales={sales}
-                        setSales={setSales}
-                        percent="3"
-                        array={saleAtThreePercent}
-                        startDate={startDate}
-                        setChangeArray={setChangeArray}
-                        userId={userId}
-                        isLoading={isLoading}
-                        setIsLoading={setIsLoading}
-                        totalCalculator={totalCalculator}
-                    />
+                    <SalesTable percent="3" array={saleAtThreePercent} />
                 )}
                 {saleAtSpecialCategory.length > 0 && (
-                    <SalesTable
-                        sales={sales}
-                        setSales={setSales}
-                        percent="7701"
-                        array={saleAtSpecialCategory}
-                        startDate={startDate}
-                        setChangeArray={setChangeArray}
-                        userId={userId}
-                        isLoading={isLoading}
-                        setIsLoading={setIsLoading}
-                        totalCalculator={totalCalculator}
-                    />
+                    <SalesTable percent="7701" array={saleAtSpecialCategory} />
                 )}
                 {additionalIncomeThisYearAndMonth.length > 0 && (
                     <AdditionalIncomeTable
                         additionalIncome={additionalIncome}
-                        startDate={startDate}
-                        totalCalculator={totalCalculator}
                         additionalIncomeThisYearAndMonth={
                             additionalIncomeThisYearAndMonth
                         }
-                        isLoading={isLoading}
-                        setIsLoading={setIsLoading}
-                        setAdditionalIncome={setAdditionalIncome}
-                        setChangeArray={setChangeArray}
                     />
                 )}
 

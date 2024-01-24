@@ -1,20 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Preloader from '../Preloader/Preloader';
 import './AdditionalIncomeTable.scss';
+import { AppContext } from '../../context/app.context';
+import { totalCalculator } from '../../App';
 
-function AdditionalIncomeTable({
-    additionalIncome,
-    setAdditionalIncome,
-    startDate,
-    totalCalculator,
-    additionalIncomeThisYearAndMonth,
-    isLoading,
-    setIsLoading,
-    setChangeArray
-}) {
+function AdditionalIncomeTable({ additionalIncomeThisYearAndMonth }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalItemInfo, setModalItemInfo] = useState([]);
+    const {
+        startDate,
+        additionalIncome,
+        setAdditionalIncome,
+        isLoading,
+        setIsLoading,
+        setChangeArray,
+    } = useContext(AppContext);
 
     const onClickadditionalIncomeItem = async (e) => {
         try {
@@ -28,7 +29,9 @@ function AdditionalIncomeTable({
             await axios({
                 method: 'get',
                 baseURL: 'http://f0883110.xsph.ru',
-                url: '/additionalIncome.php/?additional_income_id=' + additionalIncomeItemId,
+                url:
+                    '/additionalIncome.php/?additional_income_id=' +
+                    additionalIncomeItemId,
                 data: formData,
             }).then((result) => {
                 setModalItemInfo(result.data);
@@ -61,7 +64,11 @@ function AdditionalIncomeTable({
             alert('Ошибка при запросе данных');
             console.error(error);
         }
-        setAdditionalIncome(additionalIncome.filter((income) => income.additional_income_id !== id));
+        setAdditionalIncome(
+            additionalIncome.filter(
+                (income) => income.additional_income_id !== id
+            )
+        );
         setIsLoading(false);
         setModalOpen(false);
         setChangeArray(true);
@@ -81,37 +88,50 @@ function AdditionalIncomeTable({
     }, []);
     return (
         <>
-                <>
-                    <div className={modalOpen ? "overlay overlay--open" : "overlay"}></div>
-                    <div className={modalOpen ? "modal-addictional-income modal-addictional-income--open" : "modal-addictional-income"}>
-                        <button onClick={() => setModalOpen(!modalOpen)} className='modal-addictional-income__close-btn'><img src="./../img/close.svg" alt="close" /></button>
-                        {isLoading && <Preloader />}
-                        <div
-                            key={modalItemInfo.addictional_income_id}
-                            className="modal-addictional-income__item-info"
-                        >
-                            <h3>{modalItemInfo.source}</h3>
-                            <p>
-                                <span>К выплате:</span> {modalItemInfo.sum}
-                                &nbsp;&#8381;
-                            </p>
-                        </div>
-                        <div className="modal-addictional-income__buttons">
-                            <button
-                                onClick={() => setModalOpen(false)}
-                                className="modal-addictional-income__buttons-close"
-                            >
-                                Закрыть
-                            </button>
-                            <button
-                                onClick={onClickDeleteBtn}
-                                className="modal-addictional-income__buttons-delete"
-                            >
-                                Удалить
-                            </button>
-                        </div>
+            <>
+                <div
+                    className={modalOpen ? 'overlay overlay--open' : 'overlay'}
+                ></div>
+                <div
+                    className={
+                        modalOpen
+                            ? 'modal-addictional-income modal-addictional-income--open'
+                            : 'modal-addictional-income'
+                    }
+                >
+                    <button
+                        onClick={() => setModalOpen(!modalOpen)}
+                        className="modal-addictional-income__close-btn"
+                    >
+                        <img src="./../img/close.svg" alt="close" />
+                    </button>
+                    {isLoading && <Preloader />}
+                    <div
+                        key={modalItemInfo.addictional_income_id}
+                        className="modal-addictional-income__item-info"
+                    >
+                        <h3>{modalItemInfo.source}</h3>
+                        <p>
+                            <span>К выплате:</span> {modalItemInfo.sum}
+                            &nbsp;&#8381;
+                        </p>
                     </div>
-                </>
+                    <div className="modal-addictional-income__buttons">
+                        <button
+                            onClick={() => setModalOpen(false)}
+                            className="modal-addictional-income__buttons-close"
+                        >
+                            Закрыть
+                        </button>
+                        <button
+                            onClick={onClickDeleteBtn}
+                            className="modal-addictional-income__buttons-delete"
+                        >
+                            Удалить
+                        </button>
+                    </div>
+                </div>
+            </>
             <table className="additional-income-table">
                 <caption>Дополнительный доход</caption>
                 <thead>

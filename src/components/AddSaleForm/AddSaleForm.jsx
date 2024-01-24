@@ -1,19 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import axios from 'axios';
 import './AddSaleForm.scss';
 import Preloader from '../Preloader/Preloader';
+import { AppContext } from '../../context/app.context';
 
-function AddSaleForm({
-    sales,
-    setSales,
-    date,
-    setDisabledForm,
-    setHideButtons,
-    setChangeArray,
-    userId,
-    isLoading,
-    setIsLoading,
-}) {
+function AddSaleForm({ setHideButtons }) {
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [percent, setPercent] = useState('');
@@ -25,6 +16,17 @@ function AddSaleForm({
         }
     };
 
+    const {
+        sales,
+        setSales,
+        startDate,
+        setDisabledForm,
+        setChangeArray,
+        userId,
+        isLoading,
+        setIsLoading,
+    } = useContext(AppContext);
+
     const addSalesHandler = (userId, title, price, percent) => {
         const newSale = {
             employee_id: userId,
@@ -32,8 +34,8 @@ function AddSaleForm({
             price,
             percent,
             bonus: interestCalculation(price, percent),
-            month: date.getMonth(),
-            year: date.getFullYear(),
+            month: startDate.getMonth(),
+            year: startDate.getFullYear(),
         };
         setSales([...sales, newSale]);
         setChangeArray([sales]);
@@ -54,8 +56,8 @@ function AddSaleForm({
             formData.append('price', price);
             formData.append('percent', percent);
             formData.append('bonus', interestCalculation(price, percent));
-            formData.append('month', date.getMonth());
-            formData.append('year', date.getFullYear());
+            formData.append('month', startDate.getMonth());
+            formData.append('year', startDate.getFullYear());
 
             await axios({
                 method: 'post',

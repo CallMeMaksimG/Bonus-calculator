@@ -1,6 +1,7 @@
+import { HeaderProps } from './Header.props';
 import './Header.scss';
 
-function Header({ isLoaded }) {
+function Header({ isLoaded }: HeaderProps): JSX.Element {
     return (
         <header className={isLoaded ? 'header' : 'header header--loaded'}>
             <img

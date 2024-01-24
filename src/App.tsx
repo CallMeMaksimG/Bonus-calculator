@@ -7,6 +7,16 @@ import Home from './pages/Home/Home';
 import Enter from './pages/Enter/Enter';
 import Registraton from './pages/Registration/Registration';
 import './App.scss';
+import { AppContext } from './context/app.context';
+
+export const totalCalculator = (arr: [], key: string) => {
+    return arr
+        .reduce(
+            (acc, curentValue) => Math.round(acc + Number(curentValue[key])),
+            0
+        )
+        .toLocaleString();
+};
 
 function App() {
     const [disabledForm, setDisabledForm] = useState(false);
@@ -90,7 +100,21 @@ function App() {
             Number(additionalIncome.month) === startDate.getMonth()
     );
     return (
-        <>
+        <AppContext.Provider
+            value={{
+                startDate,
+                disabledForm,
+                setDisabledForm,
+                sales,
+                setSales,
+                additionalIncome,
+                setAdditionalIncome,
+                setChangeArray,
+                userId,
+                isLoading,
+                setIsLoading,
+            }}
+        >
             <div className="App">
                 <div className="container">
                     <Routes>
@@ -99,12 +123,7 @@ function App() {
                                 index
                                 element={
                                     <Home
-                                        startDate={startDate}
                                         setStartDate={setStartDate}
-                                        disabledForm={disabledForm}
-                                        setDisabledForm={setDisabledForm}
-                                        sales={sales}
-                                        setSales={setSales}
                                         saleAtOnePercent={saleAtOnePercent}
                                         saleAtThreePercent={saleAtThreePercent}
                                         salesThisYearAndMonth={
@@ -112,14 +131,6 @@ function App() {
                                         }
                                         saleAtSpecialCategory={
                                             saleAtSpecialCategory
-                                        }
-                                        setChangeArray={setChangeArray}
-                                        userId={userId}
-                                        isLoading={isLoading}
-                                        setIsLoading={setIsLoading}
-                                        additionalIncome={additionalIncome}
-                                        setAdditionalIncome={
-                                            setAdditionalIncome
                                         }
                                         additionalIncomeThisYearAndMonth={
                                             additionalIncomeThisYearAndMonth
@@ -154,7 +165,7 @@ function App() {
                     </Routes>
                 </div>
             </div>
-        </>
+        </AppContext.Provider>
     );
 }
 

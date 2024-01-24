@@ -1,13 +1,16 @@
 import { TotalResultAtMonthProps } from './TotalResultAtMonth.props';
 import './TotalResultAtMonth.scss';
 
-const totalCalculator = (arr: [number], key: string) => {
+const totalCalculator = (arr: [number], key: string): number => {
     return arr.reduce(
         (acc, curentValue) => Math.round(acc + Number(curentValue[key])),
         0
     );
 };
-const TotalResultAtMonth = ({ array, additionalIncomeThisYearAndMonth }: TotalResultAtMonthProps) => {
+const TotalResultAtMonth = ({
+    array,
+    additionalIncomeThisYearAndMonth,
+}: TotalResultAtMonthProps): JSX.Element => {
     return (
         <div className="total-result">
             <div className="total-result__sales">
@@ -26,8 +29,10 @@ const TotalResultAtMonth = ({ array, additionalIncomeThisYearAndMonth }: TotalRe
                 <p>Итого к выплате за месяц</p>
                 <span>
                     {(
-                        totalCalculator(additionalIncomeThisYearAndMonth, 'sum') +
-                        totalCalculator(array, 'bonus')
+                        totalCalculator(
+                            additionalIncomeThisYearAndMonth,
+                            'sum'
+                        ) + totalCalculator(array, 'bonus')
                     ).toLocaleString()}{' '}
                     &#8381;
                 </span>

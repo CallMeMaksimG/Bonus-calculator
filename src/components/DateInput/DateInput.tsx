@@ -42,7 +42,7 @@ ru.localize.month = buildLocalizeFn({
     defaultFormattingWidth: 'wide',
 });
 
-const DateInput = ({ startDate, setStartDate }) => {
+const DateInput = ({ startDate, setStartDate }): JSX.Element => {
     return (
         <DatePicker
             selected={startDate}

@@ -1,21 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Preloader from '../Preloader/Preloader';
 import './SalesTable.scss';
+import { AppContext } from '../../context/app.context';
+import { totalCalculator } from '../../App';
 
-function SalesTable({
-    percent,
-    array,
-    startDate,
-    setChangeArray,
-    sales,
-    setSales,
-    isLoading,
-    setIsLoading,
-    totalCalculator,
-}) {
+function SalesTable({ percent, array }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalItemInfo, setModalItemInfo] = useState([]);
+    const {
+        startDate,
+        setChangeArray,
+        sales,
+        setSales,
+        isLoading,
+        setIsLoading,
+    } = useContext(AppContext);
     const onClickSaleItem = async (e) => {
         try {
             setModalOpen(true);
@@ -137,7 +137,9 @@ function SalesTable({
             </>
 
             <table className="sales__table">
-                <caption>{percent !== '7701' ?  `${percent} %` : percent}</caption>
+                <caption>
+                    {percent !== '7701' ? `${percent} %` : percent}
+                </caption>
                 <thead>
                     <tr>
                         <th>Наименование</th>
