@@ -1,12 +1,13 @@
+import { TotalResultAtMonthProps } from './TotalResultAtMonth.props';
 import './TotalResultAtMonth.scss';
 
-const totalCalculator = (arr, key) => {
+const totalCalculator = (arr: [number], key: string) => {
     return arr.reduce(
         (acc, curentValue) => Math.round(acc + Number(curentValue[key])),
         0
     );
 };
-const TotalResultAtMonth = ({ array, additionalIncomeThisYearAndMonth }) => {
+const TotalResultAtMonth = ({ array, additionalIncomeThisYearAndMonth }: TotalResultAtMonthProps) => {
     return (
         <div className="total-result">
             <div className="total-result__sales">

@@ -1,6 +1,6 @@
 import './Info.scss';
 
-function Info({ text, setShowInfo }) {
+function Info({ text, setShowInfo }): JSX.Element {
     return (
         <>
             <div className="overlay"></div>
