@@ -1,26 +1,32 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Preloader from '../../components/Preloader/Preloader';
 import './Registration.scss';
+import { RegistrationProps } from './Registration.props';
 
-function Registraton({ setShowInfo, isLoading, setIsLoading }) {
-    const [login, setLogin] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [loginDirty, setLoginDirty] = useState(false);
-    const [passwordDirty, setPasswordDirty] = useState(false);
-    const [confirmPasswordDirty, setConfirmPasswordDirty] = useState(false);
-    const [loginError, setLoginError] = useState(
+function Registraton({
+    setShowInfo,
+    isLoading,
+    setIsLoading,
+}: RegistrationProps): JSX.Element {
+    const [login, setLogin] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
+    const [loginDirty, setLoginDirty] = useState<boolean>(false);
+    const [passwordDirty, setPasswordDirty] = useState<boolean>(false);
+    const [confirmPasswordDirty, setConfirmPasswordDirty] =
+        useState<boolean>(false);
+    const [loginError, setLoginError] = useState<string>(
         'Поле обязательно для заполнения'
     );
-    const [passwordError, setPasswordError] = useState(
+    const [passwordError, setPasswordError] = useState<string>(
         'Поле обязательно для заполнения'
     );
-    const [confirmPasswordError, setConfirmPasswordError] = useState(
+    const [confirmPasswordError, setConfirmPasswordError] = useState<string>(
         'Поле обязательно для заполнения'
     );
-    const [formValid, setFormValid] = useState(false);
+    const [formValid, setFormValid] = useState<boolean>(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -31,7 +37,7 @@ function Registraton({ setShowInfo, isLoading, setIsLoading }) {
         }
     }, [loginError, passwordError, confirmPasswordError]);
 
-    const loginHandler = (e) => {
+    const loginHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setLogin(e.target.value);
         if (e.target.value === ' ') {
             setLoginError('Некорректный логин');
@@ -40,7 +46,7 @@ function Registraton({ setShowInfo, isLoading, setIsLoading }) {
         }
     };
 
-    const passwordHandler = (e) => {
+    const passwordHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
         if (e.target.value === ' ') {
             setPasswordError('Некорректный пароль');
@@ -49,7 +55,7 @@ function Registraton({ setShowInfo, isLoading, setIsLoading }) {
         }
     };
 
-    const confirmPasswordHandler = (e) => {
+    const confirmPasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setConfirmPassword(e.target.value);
         if (e.target.value !== password) {
             setConfirmPasswordError('Пароли не совпадают');
@@ -58,7 +64,7 @@ function Registraton({ setShowInfo, isLoading, setIsLoading }) {
         }
     };
 
-    const blurHandler = (e) => {
+    const blurHandler = (e: ChangeEvent<HTMLInputElement>) => {
         switch (e.target.name) {
             case 'login':
                 setLoginDirty(true);
@@ -72,7 +78,7 @@ function Registraton({ setShowInfo, isLoading, setIsLoading }) {
         }
     };
 
-    const onSubmitHandler = async (event) => {
+    const onSubmitHandler = async (event: FormEvent) => {
         try {
             event.preventDefault();
             setIsLoading(true);
@@ -88,16 +94,11 @@ function Registraton({ setShowInfo, isLoading, setIsLoading }) {
             }).then((response) => {
                 if (response.data === null) {
                     try {
-                        axios({
+                        axios.request({
                             method: 'post',
                             baseURL: 'http://f0883110.xsph.ru',
                             url: '/reg.php?login=' + login,
                             data: formData,
-                            config: {
-                                headers: {
-                                    'Content-type': 'multipart/form-data',
-                                },
-                            },
                         });
                     } catch (error) {
                         alert('Ошибка при запросе данных');

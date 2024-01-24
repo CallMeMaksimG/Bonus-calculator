@@ -110,7 +110,9 @@ function App() {
                                         salesThisYearAndMonth={
                                             salesThisYearAndMonth
                                         }
-                                        saleAtSpecialCategory={saleAtSpecialCategory}
+                                        saleAtSpecialCategory={
+                                            saleAtSpecialCategory
+                                        }
                                         setChangeArray={setChangeArray}
                                         userId={userId}
                                         isLoading={isLoading}
@@ -119,7 +121,9 @@ function App() {
                                         setAdditionalIncome={
                                             setAdditionalIncome
                                         }
-                                        additionalIncomeThisYearAndMonth={additionalIncomeThisYearAndMonth}
+                                        additionalIncomeThisYearAndMonth={
+                                            additionalIncomeThisYearAndMonth
+                                        }
                                     />
                                 }
                             ></Route>

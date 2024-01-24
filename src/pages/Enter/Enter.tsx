@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Info from '../../components/Info/Info';
 import Preloader from '../../components/Preloader/Preloader';
 import './Enter.scss';
+import { EnterProps } from './Enter.props';
 
 const Enter = ({
     showInfo,
@@ -12,7 +13,7 @@ const Enter = ({
     setUserId,
     isLoading,
     setIsLoading,
-}) => {
+}: EnterProps): JSX.Element => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [loginDirty, setLoginDirty] = useState(false);
@@ -33,7 +34,7 @@ const Enter = ({
         }
     }, [loginError, passwordError]);
 
-    const loginHandler = (e) => {
+    const loginHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setLogin(e.target.value);
         if (e.target.value === ' ') {
             setLoginError('Некорректный логин');
@@ -42,7 +43,7 @@ const Enter = ({
         }
     };
 
-    const passwordHandler = (e) => {
+    const passwordHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
         if (e.target.value === ' ') {
             setPasswordError('Некорректный пароль');
@@ -51,7 +52,7 @@ const Enter = ({
         }
     };
 
-    const blurHandler = (e) => {
+    const blurHandler = (e: ChangeEvent<HTMLInputElement>) => {
         switch (e.target.name) {
             case 'login':
                 setLoginDirty(true);
@@ -62,7 +63,7 @@ const Enter = ({
         }
     };
 
-    const onSubmitHandler = async (event) => {
+    const onSubmitHandler = async (event: FormEvent) => {
         try {
             event.preventDefault();
             setIsLoading(true);
