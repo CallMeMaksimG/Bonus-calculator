@@ -1,14 +1,15 @@
-import { useContext, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import axios from 'axios';
 import './AddSaleForm.scss';
 import Preloader from '../Preloader/Preloader';
 import { AppContext } from '../../context/app.context';
+import { AddSaleFormProps } from './AddSaleForm.props';
 
-function AddSaleForm({ setHideButtons }) {
+function AddSaleForm({ setHideButtons }: AddSaleFormProps): JSX.Element {
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [percent, setPercent] = useState('');
-    const interestCalculation = (price, percent) => {
+    const interestCalculation = (price: number, percent: string) => {
         if (percent === '7701') {
             return Math.round((Number(price) / 100) * 1);
         } else {
@@ -27,8 +28,14 @@ function AddSaleForm({ setHideButtons }) {
         setIsLoading,
     } = useContext(AppContext);
 
-    const addSalesHandler = (userId, title, price, percent) => {
+    const addSalesHandler = (
+        userId: string,
+        title: string,
+        price: number,
+        percent: string
+    ) => {
         const newSale = {
+            sales_id: 'id',
             employee_id: userId,
             title,
             price,
@@ -42,7 +49,7 @@ function AddSaleForm({ setHideButtons }) {
         setDisabledForm(false);
         setHideButtons(false);
     };
-    const onSubmitHandler = async (event) => {
+    const onSubmitHandler = async (event: FormEvent) => {
         try {
             event.preventDefault();
             setIsLoading(true);
@@ -55,20 +62,20 @@ function AddSaleForm({ setHideButtons }) {
             formData.append('title', title);
             formData.append('price', price);
             formData.append('percent', percent);
-            formData.append('bonus', interestCalculation(price, percent));
-            formData.append('month', startDate.getMonth());
-            formData.append('year', startDate.getFullYear());
+            formData.append(
+                'bonus',
+                interestCalculation(+price, percent).toString()
+            );
+            formData.append('month', startDate.getMonth().toString());
+            formData.append('year', startDate.getFullYear().toString());
 
             await axios({
                 method: 'post',
                 baseURL: 'http://f0883110.xsph.ru',
                 url: '/sales.php',
                 data: formData,
-                config: {
-                    headers: { 'Content-type': 'multipart/form-data' },
-                },
             });
-            addSalesHandler(title, price, percent);
+            addSalesHandler(userId, title, +price, percent);
         } catch (error) {
             console.error(error);
         }

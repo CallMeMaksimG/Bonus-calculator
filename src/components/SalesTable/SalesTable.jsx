@@ -155,12 +155,15 @@ function SalesTable({ percent, array }) {
                                 startDate.getMonth() === Number(sale.month)
                         )
                         .map((sale) => {
+                            console.log(sale);
                             return (
+                                
                                 <tr
                                     key={sale.sales_id}
                                     data-id={sale.sales_id}
                                     onClick={onClickSaleItem}
                                 >
+                                   
                                     <td>{sale.title}</td>
                                     <td>
                                         {Number(sale.price).toLocaleString()}
