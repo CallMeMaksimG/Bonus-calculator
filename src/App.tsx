@@ -9,6 +9,26 @@ import Registraton from './pages/Registration/Registration';
 import './App.scss';
 import { AppContext } from './context/app.context';
 
+export interface ISale {
+    bonus: string;
+    employee_id: string;
+    month: string;
+    percent: string;
+    price: string;
+    sales_id: string;
+    title: string;
+    year: string;
+}
+
+export interface IAdditionalIncome {
+    additional_income_id: string;
+    employee_id: string;
+    month: string;
+    source: string;
+    sum: string;
+    year: string;
+}
+
 export const totalCalculator = (arr: [], key: string) => {
     return arr
         .reduce(
@@ -78,19 +98,19 @@ function App() {
         userId === null ? navigate('/login') : navigate('/');
     }, [userId]);
 
-    const salesThisYearAndMonth = sales.filter(
+    const salesThisYearAndMonth: ISale[] = sales.filter(
         (sale) =>
             Number(sale.year) === startDate.getFullYear() &&
             Number(sale.month) === startDate.getMonth()
     );
-    const saleAtOnePercent = salesThisYearAndMonth.filter(
+    const saleAtOnePercent: ISale[] = salesThisYearAndMonth.filter(
         (sale) => sale.percent === '1'
     );
-    const saleAtThreePercent = salesThisYearAndMonth.filter(
+    const saleAtThreePercent: ISale[] = salesThisYearAndMonth.filter(
         (sale) => sale.percent === '3'
     );
 
-    const saleAtSpecialCategory = salesThisYearAndMonth.filter(
+    const saleAtSpecialCategory: ISale[] = salesThisYearAndMonth.filter(
         (sale) => sale.percent === '7701'
     );
 

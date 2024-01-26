@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+import { IAdditionalIncome } from '../App';
 
 export interface ISales {
     sales_id: string;
@@ -7,15 +8,6 @@ export interface ISales {
     price: number;
     percent: string;
     bonus: number;
-    month: number;
-    year: number;
-}
-
-export interface IAdditionalIncome {
-    additional_income_id: string;
-    employee_id: string;
-    source: string;
-    sum: number;
     month: number;
     year: number;
 }

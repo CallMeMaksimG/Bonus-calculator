@@ -1,4 +1,6 @@
+import { IAdditionalIncome, ISale } from '../../App';
+
 export interface TotalResultAtMonthProps {
-    array: [number];
-    additionalIncomeThisYearAndMonth: [number];
+    array: ISale[];
+    additionalIncomeThisYearAndMonth: IAdditionalIncome[];
 }

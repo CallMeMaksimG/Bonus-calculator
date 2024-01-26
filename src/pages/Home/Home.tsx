@@ -7,6 +7,7 @@ import TotalResultAtMonth from '../../components/TotalResultAtMonth/TotalResultA
 import './Home.scss';
 import AdditionalIncomeTable from '../../components/AdditionalIncomeTable/AdditionalIncomeTable';
 import { AppContext } from '../../context/app.context';
+import { HomeProps } from './Home.props';
 
 function Home({
     setStartDate,
@@ -15,7 +16,7 @@ function Home({
     saleAtSpecialCategory,
     additionalIncomeThisYearAndMonth,
     salesThisYearAndMonth,
-}) {
+}: HomeProps): JSX.Element {
     const { startDate, disabledForm, setDisabledForm, additionalIncome } =
         useContext(AppContext);
     const [hideButtons, setHideButtons] = useState(false);
@@ -122,7 +123,7 @@ function Home({
                 )}
                 {additionalIncomeThisYearAndMonth.length > 0 && (
                     <AdditionalIncomeTable
-                        additionalIncome={additionalIncome}
+                        // additionalIncome={additionalIncome}
                         additionalIncomeThisYearAndMonth={
                             additionalIncomeThisYearAndMonth
                         }

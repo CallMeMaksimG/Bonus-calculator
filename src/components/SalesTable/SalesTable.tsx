@@ -3,7 +3,7 @@ import axios from 'axios';
 import Preloader from '../Preloader/Preloader';
 import './SalesTable.scss';
 import { AppContext, ISales } from '../../context/app.context';
-import { totalCalculator } from '../../App';
+import { ISale, totalCalculator } from '../../App';
 import { SalesTableProps } from './SalesTable.props';
 
 function SalesTable({ percent, array }: SalesTableProps): JSX.Element {
@@ -156,11 +156,11 @@ function SalesTable({ percent, array }: SalesTableProps): JSX.Element {
                 <tbody>
                     {array
                         .filter(
-                            (sale: ISales) =>
+                            (sale: ISale) =>
                                 startDate.getFullYear() === Number(sale.year) &&
                                 startDate.getMonth() === Number(sale.month)
                         )
-                        .map((sale: ISales) => {
+                        .map((sale: ISale) => {
                             return (
                                 <tr
                                     key={sale.sales_id}
@@ -175,7 +175,7 @@ function SalesTable({ percent, array }: SalesTableProps): JSX.Element {
                                     <td>
                                         {Number(
                                             bonusCalculation(
-                                                sale.price,
+                                                +sale.price,
                                                 sale.percent
                                             )
                                         ).toLocaleString()}
@@ -188,8 +188,8 @@ function SalesTable({ percent, array }: SalesTableProps): JSX.Element {
                 <tfoot>
                     <tr>
                         <td>Итого</td>
-                        <td>{totalCalculator(array, 'price')}&nbsp;&#8381;</td>
-                        <td>{totalCalculator(array, 'bonus')}&nbsp;&#8381;</td>
+                        <td>{totalCalculator(array as [], 'price')}&nbsp;&#8381;</td>
+                        <td>{totalCalculator(array as [], 'bonus')}&nbsp;&#8381;</td>
                     </tr>
                 </tfoot>
             </table>

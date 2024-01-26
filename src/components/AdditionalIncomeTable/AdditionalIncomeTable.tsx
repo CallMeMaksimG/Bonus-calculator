@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Preloader from '../Preloader/Preloader';
 import './AdditionalIncomeTable.scss';
-import { AppContext, IAdditionalIncome } from '../../context/app.context';
+import { AppContext } from '../../context/app.context';
 import { totalCalculator } from '../../App';
 import {AdditionalIncomeTableProps } from './AdditionalIncomeTable.props';
 
@@ -42,7 +42,6 @@ function AdditionalIncomeTable({ additionalIncomeThisYearAndMonth }: AdditionalI
             console.error(error);
         }
         setIsLoading(false);
-        // setAdditionalIncome([...additionalIncome, additionalIncome]);
     };
 
     const onClickDeleteBtn = async (id) => {
@@ -141,12 +140,12 @@ function AdditionalIncomeTable({ additionalIncomeThisYearAndMonth }: AdditionalI
                 <tbody>
                     {additionalIncomeThisYearAndMonth
                         .filter(
-                            (source: IAdditionalIncome) =>
+                            (source) =>
                                 startDate.getFullYear() ===
                                     Number(source.year) &&
                                 startDate.getMonth() === Number(source.month)
                         )
-                        .map((source: IAdditionalIncome) => {
+                        .map((source) => {
                             return (
                                 <tr
                                     key={source.additional_income_id}
@@ -167,7 +166,7 @@ function AdditionalIncomeTable({ additionalIncomeThisYearAndMonth }: AdditionalI
                         <td>Итого</td>
                         <td>
                             {totalCalculator(
-                                additionalIncomeThisYearAndMonth,
+                                additionalIncomeThisYearAndMonth as [],
                                 'sum'
                             )}
                             &nbsp;&#8381;
