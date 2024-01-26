@@ -1,6 +1,7 @@
 import { createContext } from 'react';
 
 export interface ISales {
+    sales_id: string;
     employee_id: string;
     title: string;
     price: number;

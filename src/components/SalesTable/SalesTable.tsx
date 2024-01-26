@@ -2,12 +2,13 @@ import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Preloader from '../Preloader/Preloader';
 import './SalesTable.scss';
-import { AppContext } from '../../context/app.context';
+import { AppContext, ISales } from '../../context/app.context';
 import { totalCalculator } from '../../App';
+import { SalesTableProps } from './SalesTable.props';
 
-function SalesTable({ percent, array }) {
-    const [modalOpen, setModalOpen] = useState(false);
-    const [modalItemInfo, setModalItemInfo] = useState([]);
+function SalesTable({ percent, array }: SalesTableProps): JSX.Element {
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [modalItemInfo, setModalItemInfo] = useState<any>([]);
     const {
         startDate,
         setChangeArray,
@@ -16,29 +17,33 @@ function SalesTable({ percent, array }) {
         isLoading,
         setIsLoading,
     } = useContext(AppContext);
-    const onClickSaleItem = async (e) => {
-        try {
-            setModalOpen(true);
-            setIsLoading(true);
-            const saleItem = e.target.parentNode;
-            const saleItemId = saleItem.dataset.id;
-            let formData = new FormData();
-            formData.append('sales_id', saleItemId);
+    const onClickSaleItem = async (e: React.MouseEvent<HTMLDivElement>) => {
+        if (e.target instanceof HTMLElement) {
+            try {
+                setModalOpen(true);
+                setIsLoading(true);
 
-            await axios({
-                method: 'get',
-                baseURL: 'http://f0883110.xsph.ru',
-                url: '/sale.php/?sales_id=' + saleItemId,
-                data: formData,
-            }).then((result) => {
-                setModalItemInfo(result.data);
-            });
-        } catch (error) {
-            alert('Ошибка при запросе данных');
-            console.error(error);
+                const saleItem = (e.target as HTMLElement)
+                    .parentNode as HTMLElement;
+                const saleItemId = saleItem.dataset.id;
+                let formData = new FormData();
+                formData.append('sales_id', saleItemId);
+
+                await axios({
+                    method: 'get',
+                    baseURL: 'http://f0883110.xsph.ru',
+                    url: '/sale.php/?sales_id=' + saleItemId,
+                    data: formData,
+                }).then((result) => {
+                    setModalItemInfo(result.data);
+                });
+            } catch (error) {
+                alert('Ошибка при запросе данных');
+                console.error(error);
+            }
+            setIsLoading(false);
+            // setSales([...sales, sales]);
         }
-        setIsLoading(false);
-        setSales([...sales, sales]);
     };
 
     const onClickReturnBtn = async (id) => {
@@ -53,9 +58,6 @@ function SalesTable({ percent, array }) {
                 baseURL: 'http://f0883110.xsph.ru',
                 url: `/sale.php/?sales_id=${id}`,
                 data: formData,
-                config: {
-                    headers: { 'Content-type': 'multipart/form-data' },
-                },
             });
         } catch (error) {
             alert('Ошибка при запросе данных');
@@ -68,8 +70,12 @@ function SalesTable({ percent, array }) {
     };
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (event.target.className.includes('overlay overlay--open')) {
+        const handleClickOutside = (event: Event) => {
+            if (
+                (event.target as HTMLElement).className.includes(
+                    'overlay overlay--open'
+                )
+            ) {
                 setModalOpen(false);
             }
         };
@@ -79,7 +85,7 @@ function SalesTable({ percent, array }) {
             document.body.removeEventListener('click', handleClickOutside);
         };
     }, []);
-    const bonusCalculation = (price, percent) => {
+    const bonusCalculation = (price: number, percent: string): number => {
         if (percent === '7701') {
             return Math.round((Number(price) / 100) * 1);
         } else {
@@ -150,20 +156,17 @@ function SalesTable({ percent, array }) {
                 <tbody>
                     {array
                         .filter(
-                            (sale) =>
+                            (sale: ISales) =>
                                 startDate.getFullYear() === Number(sale.year) &&
                                 startDate.getMonth() === Number(sale.month)
                         )
-                        .map((sale) => {
-                            console.log(sale);
+                        .map((sale: ISales) => {
                             return (
-                                
                                 <tr
                                     key={sale.sales_id}
                                     data-id={sale.sales_id}
                                     onClick={onClickSaleItem}
                                 >
-                                   
                                     <td>{sale.title}</td>
                                     <td>
                                         {Number(sale.price).toLocaleString()}
