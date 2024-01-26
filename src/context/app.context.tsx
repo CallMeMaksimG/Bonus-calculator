@@ -11,6 +11,15 @@ export interface ISales {
     year: number;
 }
 
+export interface IAdditionalIncome {
+    additional_income_id: string;
+    employee_id: string;
+    source: string;
+    sum: number;
+    month: number;
+    year: number;
+}
+
 export interface AppContextProps {
     startDate?: Date;
     disabledForm?: boolean;
@@ -18,7 +27,7 @@ export interface AppContextProps {
     sales?: ISales[];
     setSales?: (sales: ISales[]) => void;
     additionalIncome?: any[];
-    setAdditionalIncome?: (value: []) => void;
+    setAdditionalIncome?: (value: IAdditionalIncome[]) => void;
     setChangeArray?: (array: any) => void;
     userId?: string;
     isLoading?: boolean;

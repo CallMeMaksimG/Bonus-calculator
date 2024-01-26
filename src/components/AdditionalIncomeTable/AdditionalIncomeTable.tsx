@@ -2,12 +2,13 @@ import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Preloader from '../Preloader/Preloader';
 import './AdditionalIncomeTable.scss';
-import { AppContext } from '../../context/app.context';
+import { AppContext, IAdditionalIncome } from '../../context/app.context';
 import { totalCalculator } from '../../App';
+import {AdditionalIncomeTableProps } from './AdditionalIncomeTable.props';
 
-function AdditionalIncomeTable({ additionalIncomeThisYearAndMonth }) {
-    const [modalOpen, setModalOpen] = useState(false);
-    const [modalItemInfo, setModalItemInfo] = useState([]);
+function AdditionalIncomeTable({ additionalIncomeThisYearAndMonth }: AdditionalIncomeTableProps): JSX.Element {
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [modalItemInfo, setModalItemInfo] = useState<any>([]);
     const {
         startDate,
         additionalIncome,
@@ -17,11 +18,11 @@ function AdditionalIncomeTable({ additionalIncomeThisYearAndMonth }) {
         setChangeArray,
     } = useContext(AppContext);
 
-    const onClickadditionalIncomeItem = async (e) => {
+    const onClickadditionalIncomeItem = async (e: React.MouseEvent<HTMLElement>) => {
         try {
             setModalOpen(true);
             setIsLoading(true);
-            const additionalIncomeItem = e.target.parentNode;
+            const additionalIncomeItem = (e.target as HTMLElement).parentNode  as HTMLElement;
             const additionalIncomeItemId = additionalIncomeItem.dataset.id;
             let formData = new FormData();
             formData.append('addictional_income_id', additionalIncomeItemId);
@@ -41,7 +42,7 @@ function AdditionalIncomeTable({ additionalIncomeThisYearAndMonth }) {
             console.error(error);
         }
         setIsLoading(false);
-        setAdditionalIncome([...additionalIncome, additionalIncome]);
+        // setAdditionalIncome([...additionalIncome, additionalIncome]);
     };
 
     const onClickDeleteBtn = async (id) => {
@@ -56,9 +57,6 @@ function AdditionalIncomeTable({ additionalIncomeThisYearAndMonth }) {
                 baseURL: 'http://f0883110.xsph.ru',
                 url: `/additionalIncome.php/?additional_income_id=${id}`,
                 data: formData,
-                config: {
-                    headers: { 'Content-type': 'multipart/form-data' },
-                },
             });
         } catch (error) {
             alert('Ошибка при запросе данных');
@@ -143,12 +141,12 @@ function AdditionalIncomeTable({ additionalIncomeThisYearAndMonth }) {
                 <tbody>
                     {additionalIncomeThisYearAndMonth
                         .filter(
-                            (source) =>
+                            (source: IAdditionalIncome) =>
                                 startDate.getFullYear() ===
                                     Number(source.year) &&
                                 startDate.getMonth() === Number(source.month)
                         )
-                        .map((source) => {
+                        .map((source: IAdditionalIncome) => {
                             return (
                                 <tr
                                     key={source.additional_income_id}
