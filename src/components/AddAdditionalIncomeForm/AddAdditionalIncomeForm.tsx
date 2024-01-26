@@ -1,15 +1,16 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, FormEvent } from 'react';
 import axios from 'axios';
 import Preloader from '../Preloader/Preloader';
 import './AddAdditionalIncomeForm.scss';
 import { AppContext } from '../../context/app.context';
+import { AddAdditionalIncomeFormProps } from './AddAdditionalIncomeForm.props';
 
 function AddAdditionalIncomeForm({
     setDisabledFormAdditionalIncome,
     setHideButtons,
-}) {
-    const [source, setSource] = useState('');
-    const [sumIncome, setSumIncome] = useState('');
+}: AddAdditionalIncomeFormProps): JSX.Element {
+    const [source, setSource] = useState<string>('');
+    const [sumIncome, setSumIncome] = useState<string>('');
 
     const {
         isLoading,
@@ -20,7 +21,7 @@ function AddAdditionalIncomeForm({
         setChangeArray,
     } = useContext(AppContext);
 
-    const onSubmitHandler = async (event) => {
+    const onSubmitHandler = async (event: FormEvent) => {
         try {
             event.preventDefault();
             setIsLoading(true);
@@ -31,17 +32,14 @@ function AddAdditionalIncomeForm({
             formData.append('employee_id', userId);
             formData.append('source', source);
             formData.append('sum', sumIncome);
-            formData.append('month', startDate.getMonth());
-            formData.append('year', startDate.getFullYear());
+            formData.append('month', (startDate.getMonth()).toString());
+            formData.append('year', (startDate.getFullYear()).toString());
 
             await axios({
                 method: 'post',
                 baseURL: 'http://f0883110.xsph.ru',
                 url: '/additionalIncomes.php',
                 data: formData,
-                config: {
-                    headers: { 'Content-type': 'multipart/form-data' },
-                },
             });
             setChangeArray([additionalIncome]);
             setDisabledFormAdditionalIncome(false);
