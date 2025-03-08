@@ -7,11 +7,11 @@ import './reset.scss';
 const rootElement = document.getElementById('root');
 
 if (rootElement) {
-    const root = createRoot(rootElement);
+  const root = createRoot(rootElement);
 
-    root.render(
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    );
+  root.render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
 }

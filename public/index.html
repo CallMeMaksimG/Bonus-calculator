@@ -1,29 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="img/favicon_io/apple-touch-icon.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="img/favicon_io/favicon-32x32.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="img/favicon_io//favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-        <title>TSUM Bonus Calculator</title>
-    </head>
-    <body>
-        <div id="root"></div>
-    </body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="apple-touch-icon"
+      media="(prefers-color-scheme: light)"
+      href="apple-touch-icon.png"
+      id="apple-touch-icon"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="img/favicon_io/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="img/favicon_io/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>TSUM Bonus Calculator</title>
+    <script>
+      function updateIcon() {
+        const icon = document.getElementById('apple-touch-icon');
+        const darkMode = window.matchMedia(
+          '(prefers-color-scheme: dark)'
+        ).matches;
+        const newIcon = darkMode ? 'apple-touch-icon-dark.png' : 'apple-touch-icon.png';
+
+        const newLink = document.createElement('link');
+        newLink.rel = 'apple-touch-icon';
+        newLink.href = newIcon;
+        newLink.id = 'apple-touch-icon';
+
+        document.head.removeChild(icon);
+        document.head.appendChild(newLink);
+      }
+
+      updateIcon();
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change', updateIcon);
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>

@@ -7,6 +7,7 @@ export interface HomeProps {
     setDisabledForm?: (value: boolean) => void,
     saleAtOnePercent?: ISale[],
     saleAtThreePercent?: ISale[],
+    saleAtFivePercent?: ISale[],
     saleAtSpecialCategory?: ISale[],
     additionalIncomeThisYearAndMonth?: IAdditionalIncome[];
     salesThisYearAndMonth?: ISale[];

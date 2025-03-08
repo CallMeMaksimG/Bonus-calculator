@@ -1,0 +1,19 @@
+{
+  "short_name": "TSUM Bonus Calculator",
+  "name": "TSUM Bonus Calculator",
+  "start_url": ".",
+  "icons": [
+    {
+      "src": "img/favicon_io/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "img/favicon_io/apple-touch-icon-da.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
