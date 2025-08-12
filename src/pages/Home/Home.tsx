@@ -13,13 +13,13 @@ function Home({
   setStartDate,
   saleAtOnePercent,
   saleAtThreePercent,
+  saleAtFourPercent,
   saleAtFivePercent,
   saleAtSpecialCategory,
   additionalIncomeThisYearAndMonth,
   salesThisYearAndMonth,
 }: HomeProps): JSX.Element {
-  const { startDate, disabledForm, setDisabledForm, additionalIncome } =
-    useContext(AppContext);
+  const { startDate, disabledForm, setDisabledForm } = useContext(AppContext);
   const [hideButtons, setHideButtons] = useState(false);
   const [disabledFormAdditionalIncome, setDisabledFormAdditionalIncome] =
     useState(false);
@@ -112,6 +112,9 @@ function Home({
         )}
         {saleAtThreePercent.length > 0 && (
           <SalesTable percent="3" array={saleAtThreePercent} />
+        )}
+        {saleAtFourPercent.length > 0 && (
+          <SalesTable percent="4" array={saleAtFourPercent} />
         )}
         {saleAtFivePercent.length > 0 && (
           <SalesTable percent="5" array={saleAtFivePercent} />
