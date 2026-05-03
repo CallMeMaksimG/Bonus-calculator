@@ -28,7 +28,7 @@ function Home({
     const handleClickOutside = (event) => {
       if (
         event.target.className.includes(
-          'add-btns-wrapper__overlay add-btns-wrapper__overlay--open'
+          'add-btns-wrapper__overlay add-btns-wrapper__overlay--open',
         )
       ) {
         setHideButtons(false);
