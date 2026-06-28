@@ -73,7 +73,7 @@ function SalesTable({ percent, array }: SalesTableProps): JSX.Element {
     const handleClickOutside = (event: Event) => {
       if (
         (event.target as HTMLElement).className.includes(
-          'overlay overlay--open'
+          'overlay overlay--open',
         )
       ) {
         setModalOpen(false);
@@ -85,14 +85,6 @@ function SalesTable({ percent, array }: SalesTableProps): JSX.Element {
       document.body.removeEventListener('click', handleClickOutside);
     };
   }, []);
-  const bonusCalculation = (price: number, percent: string): number => {
-    if (percent === '7701') {
-      return Math.round((Number(price) / 100) * 1);
-    } else {
-      return Math.round((Number(price) / 100) * Number(percent));
-    }
-  };
-
   return (
     <>
       <>
@@ -149,7 +141,7 @@ function SalesTable({ percent, array }: SalesTableProps): JSX.Element {
             .filter(
               (sale: ISale) =>
                 startDate.getFullYear() === Number(sale.year) &&
-                startDate.getMonth() === Number(sale.month)
+                startDate.getMonth() === Number(sale.month),
             )
             .map((sale: ISale) => {
               return (
@@ -164,9 +156,7 @@ function SalesTable({ percent, array }: SalesTableProps): JSX.Element {
                     &nbsp;&#8381;
                   </td>
                   <td>
-                    {Number(
-                      bonusCalculation(+sale.price, sale.percent)
-                    ).toLocaleString()}
+                    {Number(sale.bonus).toLocaleString()}
                     &nbsp;&#8381;
                   </td>
                 </tr>

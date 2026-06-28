@@ -104,7 +104,8 @@ function App() {
     (sale) => sale.percent === '1'
   );
   const saleAtThreePercent: ISale[] = salesThisYearAndMonth.filter(
-    (sale) => sale.percent === '3' || sale.percent === '2',
+    (sale) =>
+      sale.percent === '3' || sale.percent === '2' || sale.percent === '1.74',
   );
 
   const saleAtFourPercent: ISale[] = salesThisYearAndMonth.filter(
