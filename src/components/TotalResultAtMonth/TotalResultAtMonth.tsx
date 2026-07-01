@@ -3,7 +3,8 @@ import './TotalResultAtMonth.scss';
 
 const totalCalculator = (arr: [], key: string): number => {
     return arr.reduce(
-        (acc, curentValue) => Math.round(acc + Number(curentValue[key])),
+        (acc, curentValue) =>
+            Math.round((acc + Number(curentValue[key])) * 100) / 100,
         0
     );
 };
