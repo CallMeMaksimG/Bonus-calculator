@@ -108,7 +108,7 @@ function Home({
 
       <section className="sales">
         {saleAtOnePercent.length > 0 && (
-          <SalesTable percent="1" array={saleAtOnePercent} />
+          <SalesTable percent="0.87" array={saleAtOnePercent} />
         )}
         {saleAtThreePercent.length > 0 && (
           <SalesTable percent="1.74" array={saleAtThreePercent} />

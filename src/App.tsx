@@ -31,7 +31,11 @@ export interface IAdditionalIncome {
 
 export const totalCalculator = (arr: [], key: string) => {
   return arr
-    .reduce((acc, curentValue) => Math.round(acc + Number(curentValue[key])), 0)
+    .reduce(
+      (acc, curentValue) =>
+        Math.round((acc + Number(curentValue[key])) * 100) / 100,
+      0,
+    )
     .toLocaleString();
 };
 
@@ -101,7 +105,7 @@ function App() {
       Number(sale.month) === startDate.getMonth()
   );
   const saleAtOnePercent: ISale[] = salesThisYearAndMonth.filter(
-    (sale) => sale.percent === '1'
+    (sale) => sale.percent === '1' || sale.percent === '0.87'
   );
   const saleAtThreePercent: ISale[] = salesThisYearAndMonth.filter(
     (sale) =>

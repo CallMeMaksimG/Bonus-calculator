@@ -11,9 +11,9 @@ function AddSaleForm({ setHideButtons }: AddSaleFormProps): JSX.Element {
   const [percent, setPercent] = useState('');
   const interestCalculation = (price: number, percent: string) => {
     if (percent === '7701') {
-      return Math.round((Number(price) / 100) * 1);
+      return Math.round((Number(price) / 100) * 1 * 100) / 100;
     } else {
-      return Math.round((Number(price) / 100) * Number(percent));
+      return Math.round((Number(price) / 100) * Number(percent) * 100) / 100;
     }
   };
 
@@ -111,8 +111,8 @@ function AddSaleForm({ setHideButtons }: AddSaleFormProps): JSX.Element {
                 id="one-percent"
                 type="radio"
                 name="radio"
-                value="1"
-                checked={percent == '1' ? true : false}
+                value="0.87"
+                checked={percent == '0.87' ? true : false}
                 onChange={(e) => setPercent(e.target.value)}
                 required
               />{' '}
@@ -120,7 +120,7 @@ function AddSaleForm({ setHideButtons }: AddSaleFormProps): JSX.Element {
                 htmlFor="one-percent"
                 className="add-sale__form-radio-label"
               >
-                1%
+                0,87%
               </label>
             </div>
             <div className="add-sale__form-radio">
@@ -155,23 +155,6 @@ function AddSaleForm({ setHideButtons }: AddSaleFormProps): JSX.Element {
                 className="add-sale__form-radio-label"
               >
                 4%
-              </label>
-            </div>
-            <div className="add-sale__form-radio">
-              <input
-                className="add-sale__form-radio-btn"
-                id="special-percent"
-                type="radio"
-                name="radio"
-                value="7701"
-                checked={percent == '7701' ? true : false}
-                onChange={(e) => setPercent(e.target.value)}
-              />{' '}
-              <label
-                htmlFor="special-percent"
-                className="add-sale__form-radio-label"
-              >
-                7701
               </label>
             </div>
           </fieldset>
