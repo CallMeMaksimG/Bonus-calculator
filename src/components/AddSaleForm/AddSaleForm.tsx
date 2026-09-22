@@ -129,15 +129,15 @@ function AddSaleForm({ setHideButtons }: AddSaleFormProps): JSX.Element {
                 id="three-percent"
                 type="radio"
                 name="radio"
-                value="1.74"
-                checked={percent == '1.74' ? true : false}
+                value="2.61"
+                checked={percent == '2.61' ? true : false}
                 onChange={(e) => setPercent(e.target.value)}
               />{' '}
               <label
                 htmlFor="three-percent"
                 className="add-sale__form-radio-label"
               >
-                1.74%
+                2.61%
               </label>
             </div>
             <div className="add-sale__form-radio">

@@ -111,7 +111,7 @@ function Home({
           <SalesTable percent="0.87" array={saleAtOnePercent} />
         )}
         {saleAtThreePercent.length > 0 && (
-          <SalesTable percent="1.74" array={saleAtThreePercent} />
+          <SalesTable percent="2.61" array={saleAtThreePercent} />
         )}
         {saleAtFourPercent.length > 0 && (
           <SalesTable percent="4" array={saleAtFourPercent} />
